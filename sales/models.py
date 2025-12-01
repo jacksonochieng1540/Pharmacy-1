@@ -31,7 +31,7 @@ class Sale(models.Model):
     
     sale_date = models.DateTimeField(auto_now_add=True)
     
-    # Pricing
+    
     subtotal = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -39,18 +39,18 @@ class Sale(models.Model):
     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     
-    # Payment
+    
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='cash')
     amount_paid = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     change_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
-    # Insurance
+    
     insurance_coverage = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     customer_copay = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='completed')
     
-    # Metadata
+    
     notes = models.TextField(blank=True)
     served_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='sales')
     created_at = models.DateTimeField(auto_now_add=True)
