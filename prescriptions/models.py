@@ -4,8 +4,7 @@ from apps.accounts.models import User
 from apps.inventory.models import Medicine
 
 class Doctor(models.Model):
-    """Doctor/Physician information"""
-    
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     specialization = models.CharField(max_length=100)
@@ -35,7 +34,6 @@ class Doctor(models.Model):
 
 
 class Prescription(models.Model):
-    """Medical prescriptions from doctors"""
     
     STATUS_CHOICES = (
         ('pending', 'Pending'),
@@ -56,12 +54,11 @@ class Prescription(models.Model):
     diagnosis = models.TextField(blank=True)
     notes = models.TextField(blank=True, help_text="Special instructions or notes")
     
-    # Image of physical prescription
+    
     prescription_image = models.ImageField(upload_to='prescriptions/', blank=True, null=True)
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     
-    # Tracking
     filled_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='filled_prescriptions')
     filled_at = models.DateTimeField(null=True, blank=True)
     
@@ -105,7 +102,6 @@ class Prescription(models.Model):
 
 
 class PrescriptionItem(models.Model):
-    """Medicines prescribed in a prescription"""
     
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, related_name='items')
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
