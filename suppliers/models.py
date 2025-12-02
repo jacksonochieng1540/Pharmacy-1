@@ -5,18 +5,17 @@ from apps.accounts.models import User
 class Supplier(models.Model):
     """Supplier/Vendor information"""
     
-    # Company Information
     company_name = models.CharField(max_length=200, unique=True)
     supplier_code = models.CharField(max_length=20, unique=True, editable=False)
     
-    # Contact Information
+    
     contact_person = models.CharField(max_length=100)
     email = models.EmailField(validators=[EmailValidator()])
     phone = models.CharField(max_length=15)
     alternate_phone = models.CharField(max_length=15, blank=True)
     website = models.URLField(blank=True)
     
-    # Address
+
     address_line1 = models.CharField(max_length=200)
     address_line2 = models.CharField(max_length=200, blank=True)
     city = models.CharField(max_length=100)
@@ -24,20 +23,19 @@ class Supplier(models.Model):
     postal_code = models.CharField(max_length=20, blank=True)
     country = models.CharField(max_length=100, default='Kenya')
     
-    # Business Details
+    
     tax_id = models.CharField(max_length=50, blank=True, help_text="Tax/VAT ID")
     license_number = models.CharField(max_length=100, blank=True)
     
-    # Payment Terms
+    
     payment_terms = models.CharField(max_length=100, blank=True, help_text="e.g., Net 30, Net 60")
     credit_limit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     current_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     
-    # Rating & Status
+    
     rating = models.IntegerField(default=5, choices=[(i, str(i)) for i in range(1, 6)])
     is_active = models.BooleanField(default=True)
     
-    # Metadata
     notes = models.TextField(blank=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,7 +54,6 @@ class Supplier(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.supplier_code:
-            # Generate supplier code: SUP-XXX
             last_supplier = Supplier.objects.order_by('-id').first()
             if last_supplier:
                 last_num = int(last_supplier.supplier_code.split('-')[-1])
