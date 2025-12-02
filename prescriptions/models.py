@@ -111,7 +111,7 @@ class PrescriptionItem(models.Model):
     duration = models.CharField(max_length=100, help_text="e.g., 7 days, 2 weeks")
     
     quantity_prescribed = models.IntegerField()
-    quantity_dispensed = models.IntegerField(default=0)
+    quantity_dispensed = models.IntegerField(default=0)   
     
     instructions = models.TextField(blank=True, help_text="Special instructions for this medicine")
     
