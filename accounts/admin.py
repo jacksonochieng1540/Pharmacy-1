@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
     
-    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (    
         ('Additional Info', {
             'fields': ('role', 'phone', 'email', 'first_name', 'last_name')
         }),
