@@ -116,7 +116,7 @@ class StockAdjustmentAdmin(admin.ModelAdmin):
                    'adjusted_by', 'adjusted_at')
     list_filter = ('adjustment_type', 'adjusted_at')
     search_fields = ('medicine__name', 'reason')
-    readonly_fields = ('adjusted_by', 'adjusted_at')
+    readonly_fields = ('adjusted_by', 'adjusted_at')   
     
     def save_model(self, request, obj, form, change):
         if not change:
