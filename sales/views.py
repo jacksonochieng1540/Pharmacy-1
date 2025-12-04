@@ -11,7 +11,7 @@ from decimal import Decimal
 import json
 
 from .models import Sale, SaleItem, Return, ReturnItem
-from apps.inventory.models import Medicine, Batch
+from inventory.models import Medicine, Batch
 from apps.customers.models import Customer
 from apps.prescriptions.models import Prescription
 from apps.accounts.models import UserActivity
