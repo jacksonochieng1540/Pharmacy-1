@@ -14,9 +14,44 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    # Admin
     path('admin/', admin.site.urls),
+    
+    # Web Interface (Django Templates)
+    path('', include('apps.accounts.urls')),  # Login, logout, dashboard
+    path('inventory/', include('apps.inventory.urls')),
+    path('sales/', include('apps.sales.urls')),
+    path('customers/', include('apps.customers.urls')),
+    path('suppliers/', include('apps.suppliers.urls')),
+    path('prescriptions/', include('apps.prescriptions.urls')),
+    path('reports/', include('apps.reports.urls')),
+    path('notifications/', include('apps.notifications.urls')),
+    
+    # API Endpoints
+    path('api/auth/', include('apps.accounts.api_urls')),
+    path('api/inventory/', include('apps.inventory.api_urls')),
+    path('api/sales/', include('apps.sales.api_urls')),
+    path('api/customers/', include('apps.customers.api_urls')),
+    path('api/suppliers/', include('apps.suppliers.api_urls')),
+    path('api/prescriptions/', include('apps.prescriptions.api_urls')),
+    path('api/reports/', include('apps.reports.api_urls')),
+    path('api/notifications/', include('apps.notifications.api_urls')),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Admin site customization
+admin.site.site_header = "Pharmacy Management System"
+admin.site.site_title = "Pharmacy Admin"
+admin.site.index_title = "Welcome to Pharmacy Management System"
