@@ -22,11 +22,8 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    # Admin
     path('admin/', admin.site.urls),
-    
-    # Web Interface (Django Templates)
-    path('', include('apps.accounts.urls')),  # Login, logout, dashboard
+    path('', include('apps.accounts.urls')),  
     path('inventory/', include('apps.inventory.urls')),
     path('sales/', include('apps.sales.urls')),
     path('customers/', include('apps.customers.urls')),
@@ -46,7 +43,6 @@ urlpatterns = [
     path('api/notifications/', include('apps.notifications.api_urls')),
 ]
 
-# Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
