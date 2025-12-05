@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
-from apps.accounts.models import User
-from apps.suppliers.models import Supplier
+from accounts.models import User
+from suppliers.models import Supplier
 
 class Category(models.Model):
     """Medicine categories (e.g., Antibiotics, Painkillers)"""

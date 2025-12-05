@@ -1,0 +1,10 @@
+INFO 2025-12-05 14:41:33,386 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 17:59:27,283 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 17:59:40,513 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/Pharmacy_project/settings.py changed, reloading.
+INFO 2025-12-05 17:59:41,411 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 18:06:44,841 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/models.py changed, reloading.
+INFO 2025-12-05 18:06:45,770 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 18:06:47,362 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/models.py changed, reloading.
+INFO 2025-12-05 18:06:47,949 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 18:07:57,723 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/suppliers/models.py changed, reloading.
+INFO 2025-12-05 18:07:58,539 autoreload Watching for file changes with StatReloader

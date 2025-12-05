@@ -1,7 +1,7 @@
 from django.db import models
-from apps.customers.models import Customer
-from apps.accounts.models import User
-from apps.inventory.models import Medicine
+from customers.models import Customer
+from accounts.models import User
+from inventory.models import Medicine
 
 class Doctor(models.Model):
 

@@ -1,6 +1,6 @@
 from django.db import models
-from apps.accounts.models import User
-from apps.inventory.models import Medicine, Batch
+from accounts.models import User
+from inventory.models import Medicine, Batch
 
 class Notification(models.Model):
     """System notifications and alerts"""

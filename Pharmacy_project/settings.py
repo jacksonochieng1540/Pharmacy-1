@@ -49,14 +49,14 @@ INSTALLED_APPS = [
     'django_filters',
     
     # Local apps
-    'apps.accounts',
-    'apps.inventory',
-    'apps.sales',
-    'apps.prescriptions',
-    'apps.customers',
-    'apps.suppliers',
-    'apps.reports',
-    'apps.notifications',
+    'accounts',
+    'inventory',
+    'sales',
+    'prescriptions',
+    'customers',
+    'suppliers',
+    'report',
+    'notifications',
     
 ]
 
