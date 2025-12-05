@@ -16,4 +16,11 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
-        read_only_fields = ['customer_id', 'loyalty_points', 'total_purchases']
+        read_only_fields = ['customer_id', 'loyalty_points', 'total_purchases', 'created_at', 'updated_at']
+
+class CustomerListSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(read_only=True)
+    
+    class Meta:
+        model = Customer
+        fields = ['id', 'customer_id', 'full_name', 'phone', 'email', 'loyalty_points', 'is_active']
