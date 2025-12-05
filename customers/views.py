@@ -6,8 +6,8 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 
 from .models import Customer, CustomerInsurance
-from apps.sales.models import Sale
-from apps.accounts.models import UserActivity
+from sales.models import Sale
+from accounts.models import UserActivity
 
 
 @login_required

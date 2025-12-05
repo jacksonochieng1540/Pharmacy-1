@@ -5,7 +5,7 @@ from django.db.models import Q, Sum, Count
 from django.core.paginator import Paginator
 
 from .models import Supplier, PurchaseOrder, PurchaseOrderItem
-from apps.inventory.models import Medicine
+from inventory.models import Medicine
 
 
 @login_required
@@ -50,7 +50,7 @@ def supplier_detail(request, pk):
     purchase_orders = supplier.purchase_orders.all().order_by('-created_at')[:10]
     
     # Get supplied batches
-    from apps.inventory.models import Batch
+    from inventory.models import Batch
     batches = Batch.objects.filter(supplier=supplier).select_related('medicine')[:10]
     
     # Statistics

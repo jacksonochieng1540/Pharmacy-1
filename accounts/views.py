@@ -8,10 +8,10 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 
 from .models import User, UserActivity
-from apps.inventory.models import Medicine, Batch
-from apps.sales.models import Sale, SaleItem
-from apps.customers.models import Customer
-from apps.notifications.models import Notification
+from inventory.models import Medicine, Batch
+from sales.models import Sale, SaleItem
+from customers.models import Customer
+from notifications.models import Notification
 
 
 def login_view(request):

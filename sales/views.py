@@ -12,9 +12,9 @@ import json
 
 from .models import Sale, SaleItem, Return, ReturnItem
 from inventory.models import Medicine, Batch
-from apps.customers.models import Customer
-from apps.prescriptions.models import Prescription
-from apps.accounts.models import UserActivity
+from customers.models import Customer
+from prescriptions.models import Prescription
+from accounts.models import UserActivity
 
 
 @login_required

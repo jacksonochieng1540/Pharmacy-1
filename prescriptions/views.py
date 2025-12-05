@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 
 from .models import Doctor, Prescription, PrescriptionItem
-from apps.customers.models import Customer
-from apps.inventory.models import Medicine
+from customers.models import Customer
+from inventory.models import Medicine
 
 
 @login_required

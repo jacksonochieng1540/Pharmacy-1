@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
-from apps.customers.models import Customer
-from apps.accounts.models import User
-from apps.inventory.models import Medicine, Batch
-from apps.prescriptions.models import Prescription
+from customers.models import Customer
+from accounts.models import User
+from inventory.models import Medicine, Batch
+from prescriptions.models import Prescription
 
 class Sale(models.Model):
     """Main sales/invoice model"""

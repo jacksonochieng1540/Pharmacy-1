@@ -23,24 +23,24 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.accounts.urls')),  
-    path('inventory/', include('apps.inventory.urls')),
-    path('sales/', include('apps.sales.urls')),
-    path('customers/', include('apps.customers.urls')),
-    path('suppliers/', include('apps.suppliers.urls')),
-    path('prescriptions/', include('apps.prescriptions.urls')),
-    path('reports/', include('apps.reports.urls')),
-    path('notifications/', include('apps.notifications.urls')),
+    path('', include('accounts.urls')),  
+    path('inventory/', include('inventory.urls')),
+    path('sales/', include('sales.urls')),
+    path('customers/', include('customers.urls')),
+    path('suppliers/', include('suppliers.urls')),
+    path('prescriptions/', include('prescriptions.urls')),
+    path('reports/', include('report.urls')),
+    path('notifications/', include('notifications.urls')),
     
     # API Endpoints
-    path('api/auth/', include('apps.accounts.api_urls')),
-    path('api/inventory/', include('apps.inventory.api_urls')),
-    path('api/sales/', include('apps.sales.api_urls')),
-    path('api/customers/', include('apps.customers.api_urls')),
-    path('api/suppliers/', include('apps.suppliers.api_urls')),
-    path('api/prescriptions/', include('apps.prescriptions.api_urls')),
-    path('api/reports/', include('apps.reports.api_urls')),
-    path('api/notifications/', include('apps.notifications.api_urls')),
+    path('api/auth/', include('accounts.api_urls')),
+    path('api/inventory/', include('inventory.api_urls')),
+    path('api/sales/', include('sales.api_urls')),
+    path('api/customers/', include('customers.api_urls')),
+    path('api/suppliers/', include('suppliers.api_urls')),
+    path('api/prescriptions/', include('prescriptions.api_urls')),
+    path('api/reports/', include('report.api_urls')),
+    path('api/notifications/', include('notifications.api_urls')),
 ]
 
 if settings.DEBUG:

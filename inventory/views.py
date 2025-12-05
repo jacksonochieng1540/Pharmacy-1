@@ -8,7 +8,7 @@ from datetime import date, timedelta
 from decimal import Decimal
 
 from .models import Category, Medicine, Batch, StockAdjustment
-from apps.accounts.models import UserActivity
+from accounts.models import UserActivity
 
 
 @login_required

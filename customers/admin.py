@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.customers.models import Customer, CustomerInsurance
+from customers.models import Customer, CustomerInsurance
 
 class CustomerInsuranceInline(admin.TabularInline):
     model = CustomerInsurance

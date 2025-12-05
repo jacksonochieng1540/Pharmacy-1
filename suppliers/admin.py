@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.suppliers.models import Supplier, PurchaseOrder, PurchaseOrderItem
+from suppliers.models import Supplier, PurchaseOrder, PurchaseOrderItem
 
 class PurchaseOrderItemInline(admin.TabularInline):
     model = PurchaseOrderItem

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.prescriptions.models import Doctor, Prescription, PrescriptionItem
+from prescriptions.models import Doctor, Prescription, PrescriptionItem
 
 class PrescriptionItemInline(admin.TabularInline):
     model = PrescriptionItem

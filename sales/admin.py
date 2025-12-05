@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.sales.models import Sale, SaleItem, Return, ReturnItem
+from sales.models import Sale, SaleItem, Return, ReturnItem
 
 class SaleItemInline(admin.TabularInline):
     model = SaleItem
