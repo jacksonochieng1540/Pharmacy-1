@@ -27,10 +27,9 @@ class LoginAPIView(APIView):
             
             if user:
                 if user.is_active_employee:
-                    # Create or get token
                     token, created = Token.objects.get_or_create(user=user)
                     
-                    # Log activity
+                    
                     UserActivity.objects.create(
                         user=user,
                         action='login',
@@ -71,14 +70,12 @@ class LogoutAPIView(APIView):
     
     def post(self, request):
         try:
-            # Log activity
             UserActivity.objects.create(
                 user=request.user,
                 action='logout',
                 description='API logout'
             )
             
-            # Delete token
             request.user.auth_token.delete()
             
             return Response({
@@ -105,17 +102,17 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = User.objects.all()
         
-        # Filter by role
+        
         role = self.request.query_params.get('role')
         if role:
             queryset = queryset.filter(role=role)
         
-        # Filter by active status
+        
         is_active = self.request.query_params.get('is_active')
         if is_active:
             queryset = queryset.filter(is_active_employee=is_active.lower() == 'true')
         
-        # Search
+        
         search = self.request.query_params.get('search')
         if search:
             queryset = queryset.filter(
@@ -138,7 +135,7 @@ class UserViewSet(viewsets.ModelViewSet):
         """Change user password"""
         user = self.get_object()
         
-        # Only allow users to change their own password or admin
+        
         if user != request.user and request.user.role not in ['admin', 'manager']:
             return Response({
                 'error': 'Permission denied'
@@ -146,18 +143,17 @@ class UserViewSet(viewsets.ModelViewSet):
         
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
-            # Verify current password (only if user is changing own password)
             if user == request.user:
                 if not user.check_password(serializer.validated_data['current_password']):
                     return Response({
                         'error': 'Current password is incorrect'
                     }, status=status.HTTP_400_BAD_REQUEST)
             
-            # Set new password
+            
             user.set_password(serializer.validated_data['new_password'])
             user.save()
             
-            # Log activity
+            
             UserActivity.objects.create(
                 user=user,
                 action='update',
@@ -193,7 +189,7 @@ class UserViewSet(viewsets.ModelViewSet):
         
         action_text = 'activated' if user.is_active_employee else 'deactivated'
         
-        # Log activity
+        
         UserActivity.objects.create(
             user=request.user,
             action='update',
@@ -216,12 +212,12 @@ class UserActivityViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = UserActivity.objects.all()
         
-        # Filter by user
+        
         user_id = self.request.query_params.get('user')
         if user_id:
             queryset = queryset.filter(user_id=user_id)
         
-        # Filter by action
+        
         action = self.request.query_params.get('action')
         if action:
             queryset = queryset.filter(action=action)
@@ -234,10 +230,9 @@ class UserActivityViewSet(viewsets.ReadOnlyModelViewSet):
 def refresh_token(request):
     """Refresh authentication token"""
     try:
-        # Delete old token
         request.user.auth_token.delete()
         
-        # Create new token
+        
         token = Token.objects.create(user=request.user)
         
         return Response({
