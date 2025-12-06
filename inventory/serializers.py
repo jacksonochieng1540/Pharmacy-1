@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Category, Medicine, Batch, StockAdjustment
-from apps.suppliers.models import Supplier
+from suppliers.models import Supplier
 
 class CategorySerializer(serializers.ModelSerializer):
     medicine_count = serializers.IntegerField(source='medicines.count', read_only=True)

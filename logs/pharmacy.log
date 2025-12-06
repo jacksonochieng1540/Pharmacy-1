@@ -62,3 +62,74 @@ INFO 2025-12-05 18:59:18,142 autoreload /home/notouriousmma/Documents/Tk/pharmac
 INFO 2025-12-05 18:59:18,835 autoreload Watching for file changes with StatReloader
 INFO 2025-12-05 18:59:33,694 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/report/urls.py changed, reloading.
 INFO 2025-12-05 18:59:34,780 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 17:51:16,301 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:01:29,598 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/report/views.py changed, reloading.
+INFO 2025-12-06 18:01:34,403 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:01:59,264 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/report/views.py changed, reloading.
+INFO 2025-12-06 18:02:01,518 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:03:06,942 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/notifications/urls.py changed, reloading.
+INFO 2025-12-06 18:03:07,539 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:03:33,909 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/serializers.py changed, reloading.
+INFO 2025-12-06 18:03:34,706 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:04:32,719 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/api_urls.py changed, reloading.
+INFO 2025-12-06 18:04:35,044 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:04:40,195 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/api_urls.py changed, reloading.
+INFO 2025-12-06 18:04:40,885 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:04:48,754 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/api_urls.py changed, reloading.
+INFO 2025-12-06 18:04:49,893 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:04:52,811 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/api_urls.py changed, reloading.
+INFO 2025-12-06 18:04:53,486 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:04:59,200 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/api_urls.py changed, reloading.
+INFO 2025-12-06 18:05:00,191 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:07:45,165 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/customers/api_urls.py changed, reloading.
+INFO 2025-12-06 18:07:46,105 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:08:04,102 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/prescriptions/api_urls.py changed, reloading.
+INFO 2025-12-06 18:08:04,916 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:08:28,112 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/report/api_urls.py changed, reloading.
+INFO 2025-12-06 18:08:28,941 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:11:08,032 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/Pharmacy_project/urls.py changed, reloading.
+INFO 2025-12-06 18:11:08,992 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:12:50,889 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/Pharmacy_project/urls.py changed, reloading.
+INFO 2025-12-06 18:12:51,796 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:13:54,202 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:13:59,612 basehttp code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+ERROR 2025-12-06 18:13:59,613 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-12-06 18:13:59,630 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+ERROR 2025-12-06 18:13:59,630 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-12-06 18:15:15,286 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-06 18:15:16,651 log Not Found: /accounts/login/
+WARNING 2025-12-06 18:15:16,652 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-06 18:15:21,868 log Not Found: /favicon.ico
+WARNING 2025-12-06 18:15:21,869 basehttp "GET /favicon.ico HTTP/1.1" 404 5715
+INFO 2025-12-06 18:15:56,813 autoreload Watching for file changes with StatReloader
+INFO 2025-12-06 18:16:03,890 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-06 18:16:04,346 log Not Found: /accounts/login/
+WARNING 2025-12-06 18:16:04,347 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-06 18:19:36,396 basehttp "GET /login HTTP/1.1" 301 0
+ERROR 2025-12-06 18:19:36,854 log Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/accounts/views.py", line 56, in login_view
+    return render(request, 'accounts/login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/login.html
+ERROR 2025-12-06 18:19:36,857 basehttp "GET /login/ HTTP/1.1" 500 91560
+INFO 2025-12-06 18:19:49,667 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-06 18:19:49,743 log Not Found: /accounts/login/
+WARNING 2025-12-06 18:19:49,743 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-06 18:20:10,766 basehttp "GET /dashboard/ HTTP/1.1" 302 0
+WARNING 2025-12-06 18:20:10,811 log Not Found: /accounts/login/
+WARNING 2025-12-06 18:20:10,813 basehttp "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 404 5744

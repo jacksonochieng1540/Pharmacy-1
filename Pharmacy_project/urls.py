@@ -32,16 +32,16 @@ urlpatterns = [
     path('reports/', include('report.urls')),
     path('notifications/', include('notifications.urls')),
     
-    # API Endpoints
-    path('api/auth/', include('accounts.api_urls')),
-    path('api/inventory/', include('inventory.api_urls')),
-    path('api/sales/', include('sales.api_urls')),
-    path('api/customers/', include('customers.api_urls')),
-    path('api/suppliers/', include('suppliers.api_urls')),
-    path('api/prescriptions/', include('prescriptions.api_urls')),
-    path('api/reports/', include('report.api_urls')),
-    path('api/notifications/', include('notifications.api_urls')),
-]
+#     # API Endpoints
+#     path('api/auth/', include('accounts.api_urls')),
+#     path('api/inventory/', include('inventory.api_urls')),
+#     path('api/sales/', include('sales.api_urls')),
+#     path('api/customers/', include('customers.api_urls')),
+#     path('api/suppliers/', include('suppliers.api_urls')),
+#     path('api/prescriptions/', include('prescriptions.api_urls')),
+#     path('api/reports/', include('report.api_urls')),
+#     path('api/notifications/', include('notifications.api_urls')),
+ ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

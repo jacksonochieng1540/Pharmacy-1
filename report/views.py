@@ -801,6 +801,397 @@ def customer_report(request):
     
     return render(request, 'reports/customer_report.html', context)
 
+@login_required
+def stock_movement_report(request):
+    """Stock movement and adjustment report"""
+    # Get date range
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    
+    today = timezone.now().date()
+    # Continue from stock_movement_report...
+
+    if not start_date:
+        start_date = today - timedelta(days=30)
+    else:
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+    
+    if not end_date:
+        end_date = today
+    else:
+        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+    
+    # Stock adjustments
+    adjustments = StockAdjustment.objects.filter(
+        adjusted_at__date__range=[start_date, end_date]
+    ).select_related('medicine', 'adjusted_by', 'batch').order_by('-adjusted_at')
+    
+    # Adjustments by type
+    adjustment_summary = adjustments.values('adjustment_type').annotate(
+        count=Count('id'),
+        total_quantity=Sum('quantity')
+    ).order_by('-count')
+    
+    # Adjustments by user
+    user_adjustments = adjustments.values(
+        'adjusted_by__first_name',
+        'adjusted_by__last_name'
+    ).annotate(
+        count=Count('id')
+    ).order_by('-count')
+    
+    # New batches received
+    new_batches = Batch.objects.filter(
+        received_date__range=[start_date, end_date]
+    ).select_related('medicine', 'supplier').order_by('-received_date')
+    
+    # Total quantity added
+    total_added = new_batches.aggregate(
+        total=Sum('quantity')
+    )['total'] or 0
+    
+    # Stock sold (deducted through sales)
+    stock_sold = SaleItem.objects.filter(
+        sale__sale_date__date__range=[start_date, end_date],
+        sale__status='completed'
+    ).aggregate(
+        total=Sum('quantity')
+    )['total'] or 0
+    
+    # Stock value at start and end of period
+    # This is a simplified calculation
+    current_stock_value = Medicine.objects.filter(
+        is_active=True
+    ).aggregate(
+        value=Sum(F('total_quantity') * F('unit_price'))
+    )['value'] or Decimal('0')
+    
+    # Medicines with most movement
+    most_active = SaleItem.objects.filter(
+        sale__sale_date__date__range=[start_date, end_date],
+        sale__status='completed'
+    ).values(
+        'medicine__name'
+    ).annotate(
+        quantity_sold=Sum('quantity'),
+        times_sold=Count('id')
+    ).order_by('-quantity_sold')[:20]
+    
+    context = {
+        'start_date': start_date,
+        'end_date': end_date,
+        'adjustments': adjustments[:100],
+        'adjustment_summary': adjustment_summary,
+        'user_adjustments': user_adjustments,
+        'new_batches': new_batches[:50],
+        'total_added': total_added,
+        'stock_sold': stock_sold,
+        'current_stock_value': current_stock_value,
+        'most_active': most_active,
+    }
+    
+    return render(request, 'reports/stock_movement.html', context)
+
+
+@login_required
+def expiry_report(request):
+    """Report on expiring and expired medicines"""
+    today = timezone.now().date()
+    
+    # Get timeframes
+    thirty_days = today + timedelta(days=30)
+    sixty_days = today + timedelta(days=60)
+    ninety_days = today + timedelta(days=90)
+    
+    # Expiring in 30 days
+    expiring_30 = Batch.objects.filter(
+        expiry_date__gt=today,
+        expiry_date__lte=thirty_days,
+        is_active=True,
+        remaining_quantity__gt=0
+    ).select_related('medicine', 'supplier').annotate(
+        loss_value=F('remaining_quantity') * F('unit_cost')
+    ).order_by('expiry_date')
+    
+    # Expiring in 60 days
+    expiring_60 = Batch.objects.filter(
+        expiry_date__gt=thirty_days,
+        expiry_date__lte=sixty_days,
+        is_active=True,
+        remaining_quantity__gt=0
+    ).select_related('medicine', 'supplier').annotate(
+        loss_value=F('remaining_quantity') * F('unit_cost')
+    ).order_by('expiry_date')
+    
+    # Expiring in 90 days
+    expiring_90 = Batch.objects.filter(
+        expiry_date__gt=sixty_days,
+        expiry_date__lte=ninety_days,
+        is_active=True,
+        remaining_quantity__gt=0
+    ).select_related('medicine', 'supplier').annotate(
+        loss_value=F('remaining_quantity') * F('unit_cost')
+    ).order_by('expiry_date')
+    
+    # Already expired
+    expired = Batch.objects.filter(
+        expiry_date__lte=today,
+        is_active=True,
+        remaining_quantity__gt=0
+    ).select_related('medicine', 'supplier').annotate(
+        loss_value=F('remaining_quantity') * F('unit_cost')
+    ).order_by('-expiry_date')
+    
+    # Calculate potential losses
+    loss_30 = expiring_30.aggregate(total=Sum('loss_value'))['total'] or Decimal('0')
+    loss_60 = expiring_60.aggregate(total=Sum('loss_value'))['total'] or Decimal('0')
+    loss_90 = expiring_90.aggregate(total=Sum('loss_value'))['total'] or Decimal('0')
+    loss_expired = expired.aggregate(total=Sum('loss_value'))['total'] or Decimal('0')
+    
+    # Suppliers with most expiring stock
+    supplier_expiry = Batch.objects.filter(
+        expiry_date__lte=ninety_days,
+        expiry_date__gt=today,
+        is_active=True,
+        remaining_quantity__gt=0
+    ).values(
+        'supplier__company_name'
+    ).annotate(
+        total_batches=Count('id'),
+        total_value=Sum(F('remaining_quantity') * F('unit_cost'))
+    ).order_by('-total_value')
+    
+    context = {
+        'expiring_30': expiring_30,
+        'expiring_60': expiring_60,
+        'expiring_90': expiring_90,
+        'expired': expired,
+        'loss_30': loss_30,
+        'loss_60': loss_60,
+        'loss_90': loss_90,
+        'loss_expired': loss_expired,
+        'total_potential_loss': loss_30 + loss_60 + loss_90 + loss_expired,
+        'supplier_expiry': supplier_expiry,
+    }
+    
+    return render(request, 'reports/expiry_report.html', context)
+
+
+# ============ Export Functions ============
+
+def export_sales_csv(sales, start_date, end_date):
+    """Export sales data to CSV"""
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="sales_report_{start_date}_to_{end_date}.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow([
+        'Invoice Number', 'Date', 'Time', 'Customer', 'Customer Phone',
+        'Payment Method', 'Subtotal', 'Discount', 'Tax', 'Total',
+        'Amount Paid', 'Change', 'Status', 'Served By'
+    ])
+    
+    for sale in sales:
+        writer.writerow([
+            sale.invoice_number,
+            sale.sale_date.strftime('%Y-%m-%d'),
+            sale.sale_date.strftime('%H:%M:%S'),
+            sale.customer.full_name if sale.customer else 'Walk-in',
+            sale.customer.phone if sale.customer else '',
+            sale.get_payment_method_display(),
+            sale.subtotal,
+            sale.discount_amount,
+            sale.tax_amount,
+            sale.total_amount,
+            sale.amount_paid,
+            sale.change_amount,
+            sale.get_status_display(),
+            sale.served_by.get_full_name() if sale.served_by else ''
+        ])
+    
+    return response
+
+
+def export_sales_excel(sales, start_date, end_date, context):
+    """Export sales data to Excel with multiple sheets"""
+    try:
+        import openpyxl
+        from openpyxl.styles import Font, Alignment, PatternFill
+        from openpyxl.utils import get_column_letter
+    except ImportError:
+        messages.error(request, 'Excel export requires openpyxl. Please install it.')
+        return redirect('reports:sales')
+    
+    # Create workbook
+    wb = openpyxl.Workbook()
+    
+    # Sheet 1: Sales Summary
+    ws1 = wb.active
+    ws1.title = "Summary"
+    
+    # Headers
+    ws1['A1'] = 'Sales Report'
+    ws1['A1'].font = Font(size=16, bold=True)
+    ws1['A2'] = f'Period: {start_date} to {end_date}'
+    
+    # Summary data
+    row = 4
+    ws1[f'A{row}'] = 'Total Sales:'
+    ws1[f'B{row}'] = context['totals']['total_sales']
+    row += 1
+    ws1[f'A{row}'] = 'Total Transactions:'
+    ws1[f'B{row}'] = context['totals']['count']
+    row += 1
+    ws1[f'A{row}'] = 'Average Sale:'
+    ws1[f'B{row}'] = context['totals']['avg_sale']
+    
+    # Sheet 2: Detailed Sales
+    ws2 = wb.create_sheet("Sales Details")
+    headers = ['Invoice', 'Date', 'Customer', 'Payment', 'Subtotal', 'Discount', 'Tax', 'Total', 'Staff']
+    ws2.append(headers)
+    
+    # Style headers
+    for col in range(1, len(headers) + 1):
+        cell = ws2.cell(row=1, column=col)
+        cell.font = Font(bold=True)
+        cell.fill = PatternFill(start_color='CCCCCC', end_color='CCCCCC', fill_type='solid')
+    
+    # Add data
+    for sale in sales:
+        ws2.append([
+            sale.invoice_number,
+            sale.sale_date.strftime('%Y-%m-%d %H:%M'),
+            sale.customer.full_name if sale.customer else 'Walk-in',
+            sale.get_payment_method_display(),
+            float(sale.subtotal),
+            float(sale.discount_amount),
+            float(sale.tax_amount),
+            float(sale.total_amount),
+            sale.served_by.get_full_name() if sale.served_by else ''
+        ])
+    
+    # Sheet 3: Top Products
+    if context.get('top_products'):
+        ws3 = wb.create_sheet("Top Products")
+        ws3.append(['Product', 'Quantity', 'Revenue', 'Profit'])
+        
+        for col in range(1, 5):
+            cell = ws3.cell(row=1, column=col)
+            cell.font = Font(bold=True)
+            cell.fill = PatternFill(start_color='CCCCCC', end_color='CCCCCC', fill_type='solid')
+        
+        for product in context['top_products']:
+            ws3.append([
+                product['medicine__name'],
+                product['quantity'],
+                float(product['revenue']),
+                float(product.get('profit', 0))
+            ])
+    
+    # Save to response
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = f'attachment; filename="sales_report_{start_date}_to_{end_date}.xlsx"'
+    wb.save(response)
+    
+    return response
+
+
+def export_inventory_csv(medicines):
+    """Export inventory data to CSV"""
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="inventory_report.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow([
+        'SKU', 'Name', 'Generic Name', 'Category', 'Form', 'Strength',
+        'Unit Price', 'Selling Price', 'Quantity', 'Reorder Level',
+        'Status', 'Value'
+    ])
+    
+    for medicine in medicines:
+        value = medicine.total_quantity * medicine.unit_price
+        status = 'Low Stock' if medicine.is_low_stock else 'In Stock'
+        
+        writer.writerow([
+            medicine.sku,
+            medicine.name,
+            medicine.generic_name,
+            medicine.category.name if medicine.category else '',
+            medicine.get_form_display(),
+            medicine.strength,
+            medicine.unit_price,
+            medicine.selling_price,
+            medicine.total_quantity,
+            medicine.reorder_level,
+            status,
+            value
+        ])
+    
+    return response
+
+
+# ============ API Views for Reports ============
+
+@login_required
+def sales_chart_data(request):
+    """Return sales data for charts (AJAX)"""
+    days = int(request.GET.get('days', 7))
+    today = timezone.now().date()
+    start_date = today - timedelta(days=days-1)
+    
+    # Daily sales
+    daily_data = []
+    for i in range(days):
+        date_check = start_date + timedelta(days=i)
+        total = Sale.objects.filter(
+            sale_date__date=date_check,
+            status='completed'
+        ).aggregate(total=Sum('total_amount'))['total'] or 0
+        
+        daily_data.append({
+            'date': date_check.strftime('%Y-%m-%d'),
+            'label': date_check.strftime('%a'),
+            'value': float(total)
+        })
+    
+    return JsonResponse({
+        'success': True,
+        'data': daily_data
+    })
+
+
+@login_required
+def inventory_chart_data(request):
+    """Return inventory data for charts (AJAX)"""
+    
+    # Stock status
+    total = Medicine.objects.filter(is_active=True).count()
+    low_stock = Medicine.objects.filter(
+        total_quantity__lte=F('reorder_level'),
+        is_active=True
+    ).count()
+    out_of_stock = Medicine.objects.filter(
+        total_quantity=0,
+        is_active=True
+    ).count()
+    in_stock = total - low_stock - out_of_stock
+    
+    # Category distribution
+    category_data = Category.objects.annotate(
+        count=Count('medicines', filter=Q(medicines__is_active=True))
+    ).values('name', 'count')
+    
+    return JsonResponse({
+        'success': True,
+        'stock_status': {
+            'in_stock': in_stock,
+            'low_stock': low_stock,
+            'out_of_stock': out_of_stock
+        },
+        'categories': list(category_data)
+    })
 
 
   

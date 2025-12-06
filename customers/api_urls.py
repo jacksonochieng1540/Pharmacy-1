@@ -1,10 +1,10 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from . import api_views
+# from django.urls import path, include
+# from rest_framework.routers import DefaultRouter
+# from . import api_views
 
-router = DefaultRouter()
-router.register('customers', api_views.CustomerViewSet, basename='customer')
+# router = DefaultRouter()
+# router.register('customers', api_views.CustomerViewSet, basename='customer')
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
+# urlpatterns = [
+#     path('', include(router.urls)),
+# ]
