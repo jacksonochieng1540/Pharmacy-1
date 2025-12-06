@@ -15,7 +15,7 @@ def customer_list(request):
     """List all customers"""
     customers = Customer.objects.all()
     
-    # Search
+    
     search = request.GET.get('search')
     if search:
         customers = customers.filter(
@@ -26,16 +26,16 @@ def customer_list(request):
             Q(customer_id__icontains=search)
         )
     
-    # Filter by status
+    
     status = request.GET.get('status')
     if status:
         customers = customers.filter(is_active=status == 'active')
     
-    # Order by
+    
     order_by = request.GET.get('order_by', '-created_at')
     customers = customers.order_by(order_by)
     
-    # Pagination
+    
     paginator = Paginator(customers, 20)
     page_number = request.GET.get('page')
     customers_page = paginator.get_page(page_number)
@@ -54,13 +54,13 @@ def customer_detail(request, pk):
     """View customer details"""
     customer = get_object_or_404(Customer, pk=pk)
     
-    # Get purchase history
-    sales = Sale.objects.filter(customer=customer).order_by('-sale_date')[:10]
     
-    # Get insurance info
+    sales = Sale.objects.filter(customer=customer).order_by('-sale_date')[:10]
+
+    
     insurances = customer.insurances.all()
     
-    # Calculate statistics
+    
     total_spent = Sale.objects.filter(
         customer=customer, status='completed'
     ).aggregate(total=Sum('total_amount'))['total'] or 0
