@@ -133,3 +133,50 @@ WARNING 2025-12-06 18:19:49,743 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 
 INFO 2025-12-06 18:20:10,766 basehttp "GET /dashboard/ HTTP/1.1" 302 0
 WARNING 2025-12-06 18:20:10,811 log Not Found: /accounts/login/
 WARNING 2025-12-06 18:20:10,813 basehttp "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 404 5744
+INFO 2025-12-07 18:46:01,444 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 18:46:09,108 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-07 18:46:09,237 log Not Found: /accounts/login/
+WARNING 2025-12-07 18:46:09,238 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-07 18:46:09,509 log Not Found: /favicon.ico
+INFO 2025-12-07 18:48:21,574 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/Pharmacy_project/settings.py changed, reloading.
+INFO 2025-12-07 18:48:22,950 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 18:48:25,738 autoreload /home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/Pharmacy_project/settings.py changed, reloading.
+INFO 2025-12-07 18:48:26,610 autoreload Watching for file changes with StatReloader
+WARNING 2025-12-07 18:48:31,304 log Not Found: /accounts/login/
+WARNING 2025-12-07 18:48:31,304 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-07 18:48:31,392 log Not Found: /favicon.ico
+WARNING 2025-12-07 18:48:32,552 log Not Found: /accounts/login/
+WARNING 2025-12-07 18:48:32,553 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-07 18:48:32,646 log Not Found: /favicon.ico
+INFO 2025-12-07 18:48:42,658 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-07 18:48:43,058 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4175
+INFO 2025-12-07 18:48:43,187 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-12-07 18:48:43,187 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-12-07 18:48:43,188 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-12-07 18:48:43,189 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-12-07 18:48:43,190 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-12-07 18:48:43,387 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-12-07 18:48:43,387 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-12-07 18:48:53,126 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-07 18:48:53,205 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-07 18:48:53,288 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-12-07 18:48:53,487 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-07 18:48:53,488 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-07 18:48:53,488 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-12-07 18:48:53,505 log Not Found: /favicon.ico
+INFO 2025-12-07 18:48:53,550 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-07 18:48:53,555 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-07 18:48:53,557 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-07 18:49:00,451 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-07 18:49:00,486 basehttp "GET /admin/ HTTP/1.1" 200 21576
+WARNING 2025-12-07 18:49:00,757 log Not Found: /favicon.ico
+INFO 2025-12-07 18:49:12,226 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 18:49:36,946 basehttp "GET / HTTP/1.1" 200 13850
+WARNING 2025-12-07 18:49:37,102 basehttp "GET /static/css/style.css HTTP/1.1" 404 1966
+WARNING 2025-12-07 18:49:37,117 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-07 18:49:38,195 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-07 18:49:38,353 log Not Found: /favicon.ico
+INFO 2025-12-07 18:51:12,004 basehttp "GET / HTTP/1.1" 200 13850
+WARNING 2025-12-07 18:51:12,093 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-07 18:51:12,101 basehttp "GET /static/css/style.css HTTP/1.1" 200 10676
+WARNING 2025-12-07 18:51:12,653 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
