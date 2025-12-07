@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Pharmacy Management System{% endblock %}</title>
     
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    
+    <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
@@ -17,86 +27,228 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'accounts:dashboard' %}">
-                <i class="bi bi-hospital"></i> Pharmacy MS
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:dashboard' %}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'inventory:medicine_list' %}">
-                            <i class="bi bi-capsule"></i> Inventory
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'sales:pos' %}">
-                            <i class="bi bi-cart"></i> POS
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'customers:customer_list' %}">
-                            <i class="bi bi-people"></i> Customers
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'reports:dashboard' %}">
-                            <i class="bi bi-graph-up"></i> Reports
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
-                           data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> {{ user.get_full_name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4><i class="bi bi-hospital"></i> Pharmacy MS</h4>
         </div>
-    </nav>
-    {% endif %}
-    
-    <!-- Messages -->
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        
+        <ul class="sidebar-menu">
+            <li>
+                <a href="{% url 'accounts:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'sales:pos' %}" class="{% if 'pos' in request.path %}active{% endif %}">
+                    <i class="bi bi-cart-plus"></i>
+                    <span>Point of Sale</span>
+                </a>
+            </li>
+            
+            <li class="menu-section">
+                <span>INVENTORY</span>
+            </li>
+            
+            <li>
+                <a href="{% url 'inventory:medicine_list' %}" class="{% if 'inventory/medicines' in request.path %}active{% endif %}">
+                    <i class="bi bi-capsule"></i>
+                    <span>Medicines</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'inventory:categories' %}" class="{% if 'categories' in request.path %}active{% endif %}">
+                    <i class="bi bi-tag"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'inventory:low_stock' %}" class="{% if 'low-stock' in request.path %}active{% endif %}">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Low Stock</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'inventory:expiring' %}" class="{% if 'expiring' in request.path %}active{% endif %}">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Expiring Items</span>
+                </a>
+            </li>
+            
+            <li class="menu-section">
+                <span>SALES & CUSTOMERS</span>
+            </li>
+            
+            <li>
+                <a href="{% url 'sales:sales_list' %}" class="{% if 'sales/sales' in request.path %}active{% endif %}">
+                    <i class="bi bi-receipt"></i>
+                    <span>Sales</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'customers:customer_list' %}" class="{% if 'customers' in request.path %}active{% endif %}">
+                    <i class="bi bi-people"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'prescriptions:prescription_list' %}" class="{% if 'prescriptions' in request.path %}active{% endif %}">
+                    <i class="bi bi-file-medical"></i>
+                    <span>Prescriptions</span>
+                </a>
+            </li>
+            
+            <li class="menu-section">
+                <span>MANAGEMENT</span>
+            </li>
+            
+            <li>
+                <a href="{% url 'suppliers:supplier_list' %}" class="{% if 'suppliers' in request.path %}active{% endif %}">
+                    <i class="bi bi-truck"></i>
+                    <span>Suppliers</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{% url 'reports:dashboard' %}" class="{% if 'reports' in request.path %}active{% endif %}">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+            
+            {% if user.role == 'admin' or user.role == 'manager' %}
+            <li>
+                <a href="{% url 'accounts:user_list' %}" class="{% if 'users' in request.path %}active{% endif %}">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        
+        <div class="sidebar-footer">
+            <small class="text-muted">© 2024 Pharmacy MS</small>
         </div>
-        {% endfor %}
     </div>
-    {% endif %}
     
     <!-- Main Content -->
-    <main class="container-fluid mt-4">
-        {% block content %}{% endblock %}
-    </main>
+    <div class="main-content" id="main-content">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-link" id="sidebarToggle">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                
+                <div class="navbar-nav ms-auto">
+                    <!-- Notifications -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ unread_notifications.count|default:0 }}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown" style="width: 300px;">
+                            <li class="dropdown-header">Notifications</li>
+                            {% if unread_notifications %}
+                                {% for notification in unread_notifications %}
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <small class="text-muted">{{ notification.created_at|timesince }} ago</small>
+                                        <div>{{ notification.title }}</div>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                                <li><span class="dropdown-item text-muted">No new notifications</span></li>
+                            {% endif %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View all</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="Profile" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;">
+                            {% else %}
+                                <i class="bi bi-person-circle fs-4 me-2"></i>
+                            {% endif %}
+                            <span>{{ user.get_full_name|default:user.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><h6 class="dropdown-header">{{ user.get_role_display }}</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:change_password' %}"><i class="bi bi-key"></i> Change Password</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Breadcrumb -->
+        <div class="container-fluid mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'accounts:dashboard' %}">Home</a></li>
+                    {% block breadcrumb %}{% endblock %}
+                </ol>
+            </nav>
+        </div>
+        
+        <!-- Messages -->
+        {% if messages %}
+        <div class="container-fluid mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}x-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Page Content -->
+        <div class="container-fluid mt-3 mb-5">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    {% else %}
+    <!-- Not authenticated - show login page content -->
+    {% block unauthenticated_content %}{% endblock %}
+    {% endif %}
     
-    <!-- Footer -->
-    <footer class="bg-light text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2024 Pharmacy Management System. All rights reserved.</p>
-    </footer>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>
