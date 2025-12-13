@@ -4,7 +4,7 @@ from decimal import Decimal
 from accounts.models import User
 from suppliers.models import Supplier
 
-class Category(models.Model):
+class Category(models.Model):    
     """Medicine categories (e.g., Antibiotics, Painkillers)"""
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -42,29 +42,28 @@ class Medicine(models.Model):
     form = models.CharField(max_length=20, choices=FORM_CHOICES)
     strength = models.CharField(max_length=50, help_text="e.g., 500mg, 10ml")
     
-    # Identifiers
+    
     sku = models.CharField(max_length=50, unique=True, help_text="Stock Keeping Unit")
     barcode = models.CharField(max_length=100, unique=True, blank=True, null=True)
     
-    # Pricing
+    
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
     selling_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
     
-    # Stock
+    
     total_quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     reorder_level = models.IntegerField(default=20, validators=[MinValueValidator(0)])
     
-    # Additional info
+    
     description = models.TextField(blank=True)
     side_effects = models.TextField(blank=True)
     storage_conditions = models.TextField(blank=True)
     requires_prescription = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     
-    # Images
     image = models.ImageField(upload_to='medicines/', blank=True, null=True)
     
-    # Metadata
+    
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='medicines_created')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -134,7 +133,7 @@ class Batch(models.Model):
     
     @property
     def is_near_expiry(self):
-        return 0 < self.days_to_expiry <= 90  # 3 months
+        return 0 < self.days_to_expiry <= 90  
 
 
 class StockAdjustment(models.Model):
@@ -153,7 +152,7 @@ class StockAdjustment(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE, null=True, blank=True)
     
     adjustment_type = models.CharField(max_length=20, choices=REASON_CHOICES)
-    quantity = models.IntegerField()  # Positive for addition, negative for reduction
+    quantity = models.IntegerField()  
     reason = models.TextField()
     
     adjusted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
