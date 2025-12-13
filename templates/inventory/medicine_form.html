@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if is_edit %}Edit{% else %}Add{% endif %} Medicine - Pharmacy MS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'inventory:medicine_list' %}">Inventory</a></li>
+<li class="breadcrumb-item"><a href="{% url 'inventory:medicine_list' %}">Medicines</a></li>
+<li class="breadcrumb-item active">{% if is_edit %}Edit{% else %}Add New{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-{% if is_edit %}pencil{% else %}plus-circle{% endif %}"></i> {% if is_edit %}Edit{% else %}Add New{% endif %} Medicine</h2>
+            <a href="{% url 'inventory:medicine_list' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="card table-card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Basic Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Medicine Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" value="{% if medicine %}{{ medicine.name }}{% endif %}" required>
+                            <div class="invalid-feedback">Please enter medicine name</div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="generic_name" class="form-label">Generic Name</label>
+                            <input type="text" class="form-control" id="generic_name" name="generic_name" value="{% if medicine %}{{ medicine.generic_name }}{% endif %}">
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-select select2" id="category" name="category">
+                                <option value="">Select Category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" {% if medicine and medicine.category_id == category.id %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="manufacturer" class="form-label">Manufacturer <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="manufacturer" name="manufacturer" value="{% if medicine %}{{ medicine.manufacturer }}{% endif %}" required>
+                            <div class="invalid-feedback">Please enter manufacturer</div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="form" class="form-label">Form <span class="text-danger">*</span></label>
+                            <select class="form-select" id="form" name="form" required>
+                                <option value="">Select Form</option>
+                                {% for value, label in form_choices %}
+                                <option value="{{ value }}" {% if medicine and medicine.form == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">Please select form</div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="strength" class="form-label">Strength <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="strength" name="strength" placeholder="e.g., 500mg, 10ml" value="{% if medicine %}{{ medicine.strength }}{% endif %}" required>
+                            <div class="invalid-feedback">Please enter strength</div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" class="form-control image-input" id="image" name="image" accept="image/*" data-preview="#imagePreview">
+                            {% if medicine and medicine.image %}
+                            <img src="{{ medicine.image.url }}" id="imagePreview" class="img-thumbnail mt-2" style="max-height: 100px;">
+                            {% else %}
+                            <img id="imagePreview" class="img-thumbnail mt-2" style="max-height: 100px; display: none;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card table-card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Identifiers</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="sku" class="form-label">SKU <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="sku" name="sku" placeholder="e.g., MED-001" value="{% if medicine %}{{ medicine.sku }}{% endif %}" required>
+                            <small class="text-muted">Stock Keeping Unit - must be unique</small>
+                            <div class="invalid-feedback">Please enter SKU</div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="barcode" class="form-label">Barcode</label>
+                            <input type="text" class="form-control" id="barcode" name="barcode" value="{% if medicine %}{{ medicine.barcode }}{% endif %}">
+                            <small class="text-muted">Optional barcode for scanning</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card table-card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Pricing & Stock</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="unit_price" class="form-label">Unit Cost (KES) <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="unit_price" name="unit_price" value="{% if medicine %}{{ medicine.unit_price }}{% endif %}" required>
+                            <small class="text-muted">Purchase/cost price</small>
+                            <div class="invalid-feedback">Please enter unit cost</div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="selling_price" class="form-label">Selling Price (KES) <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="selling_price" name="selling_price" value="{% if medicine %}{{ medicine.selling_price }}{% endif %}" required>
+                            <small class="text-muted">Retail/selling price</small>
+                            <div class="invalid-feedback">Please enter selling price</div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="reorder_level" class="form-label">Reorder Level</label>
+                            <input type="number" min="0" class="form-control" id="reorder_level" name="reorder_level" value="{% if medicine %}{{ medicine.reorder_level }}{% else %}20{% endif %}">
+                            <small class="text-muted">Alert when stock reaches this level</small>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div id="profitMargin" class="alert alert-info d-none">
+                                <i class="bi bi-info-circle"></i> Profit Margin: <strong><span id="marginPercent">0</span>%</strong> 
+                                (Profit: <strong>KES <span id="profitAmount">0</span></strong>)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card table-card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Additional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{% if medicine %}{{ medicine.description }}{% endif %}</textarea>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <label for="side_effects" class="form-label">Side Effects</label>
+                            <textarea class="form-control" id="side_effects" name="side_effects" rows="2">{% if medicine %}{{ medicine.side_effects }}{% endif %}</textarea>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <label for="storage_conditions" class="form-label">Storage Conditions</label>
+                            <textarea class="form-control" id="storage_conditions" name="storage_conditions" rows="2">{% if medicine %}{{ medicine.storage_conditions }}{% endif %}</textarea>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="requires_prescription" name="requires_prescription" {% if medicine and medicine.requires_prescription %}checked{% endif %}>
+                                <label class="form-check-label" for="requires_prescription">
+                                    Requires Prescription
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" {% if not medicine or medicine.is_active %}checked{% endif %}>
+                                <label class="form-check-label" for="is_active">
+                                    Active Status
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'inventory:medicine_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> {% if is_edit %}Update{% else %}Create{% endif %} Medicine
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Calculate profit margin
+    function calculateMargin() {
+        var unitPrice = parseFloat($('#unit_price').val()) || 0;
+        var sellingPrice = parseFloat($('#selling_price').val()) || 0;
+        
+        if (unitPrice > 0 && sellingPrice > 0) {
+            var profit = sellingPrice - unitPrice;
+            var margin = (profit / unitPrice) * 100;
+            
+            $('#profitAmount').text(profit.toFixed(2));
+            $('#marginPercent').text(margin.toFixed(1));
+            $('#profitMargin').removeClass('d-none');
+            
+            if (sellingPrice < unitPrice) {
+                $('#profitMargin').removeClass('alert-info').addClass('alert-danger');
+            } else {
+                $('#profitMargin').removeClass('alert-danger').addClass('alert-info');
+            }
+        } else {
+            $('#profitMargin').addClass('d-none');
+        }
+    }
+    
+    $('#unit_price, #selling_price').on('input', calculateMargin);
+    
+    // Calculate on page load if editing
+    {% if medicine %}
+    calculateMargin();
+    {% endif %}
+    
+    // Generate SKU suggestion
+    $('#name').on('blur', function() {
+        if (!$('#sku').val()) {
+            var name = $(this).val().toUpperCase().substring(0, 3);
+            var random = Math.floor(Math.random() * 1000);
+            $('#sku').val('MED-' + name + '-' + random);
+        }
+    });
+});
+</script>
+{% endblock %}
