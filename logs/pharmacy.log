@@ -180,3 +180,33 @@ INFO 2025-12-07 18:51:12,004 basehttp "GET / HTTP/1.1" 200 13850
 WARNING 2025-12-07 18:51:12,093 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
 INFO 2025-12-07 18:51:12,101 basehttp "GET /static/css/style.css HTTP/1.1" 200 10676
 WARNING 2025-12-07 18:51:12,653 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-12 13:06:11,514 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 13:06:32,245 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-12 13:06:32,587 log Not Found: /accounts/login/
+WARNING 2025-12-12 13:06:32,592 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-12 13:08:29,395 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-12 13:08:29,597 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4175
+INFO 2025-12-12 13:08:29,815 basehttp "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,820 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,822 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,824 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,827 basehttp "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,828 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:29,828 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:48,722 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-12 13:08:48,823 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-12 13:08:48,990 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-12 13:08:49,088 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-12 13:08:49,089 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-12 13:08:49,089 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-12 13:09:06,605 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-12 13:09:06,638 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-12 13:09:11,826 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-12 13:09:13,194 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-12 13:09:14,131 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-12 13:09:31,646 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 13:09:35,588 basehttp "GET / HTTP/1.1" 200 13850
+INFO 2025-12-12 13:09:35,793 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-12-12 13:09:35,874 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-12 13:09:36,166 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-12 13:11:29,529 basehttp "GET /admin/ HTTP/1.1" 302 0
