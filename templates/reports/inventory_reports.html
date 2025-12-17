@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory Report - Pharmacy MS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-box-seam"></i> Inventory Report</h2>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Value</h6>
+                <h3>KES {{ total_value|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Items</h6>
+                <h3>{{ total_medicines }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted text-warning">Low Stock</h6>
+                <h3 class="text-warning">{{ low_stock }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted text-danger">Out of Stock</h6>
+                <h3 class="text-danger">{{ out_of_stock }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stock by Category -->
+<div class="card mb-4">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Stock by Category</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Total Items</th>
+                    <th>Total Quantity</th>
+                    <th>Total Value</th>
+                    <th>Low Stock Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in category_stock %}
+                <tr>
+                    <td><strong>{{ cat.name }}</strong></td>
+                    <td>{{ cat.total_items }}</td>
+                    <td>{{ cat.total_quantity|default:0 }}</td>
+                    <td>KES {{ cat.total_value|default:0|floatformat:2 }}</td>
+                    <td>
+                        {% if cat.low_stock_items > 0 %}
+                        <span class="badge bg-warning">{{ cat.low_stock_items }}</span>
+                        {% else %}
+                        <span class="text-success">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Fast Moving Items -->
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Fast Moving Items</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Sold (30d)</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in fast_moving %}
+                        <tr>
+                            <td>{{ item.medicine__name }}</td>
+                            <td><span class="badge bg-success">{{ item.quantity_sold }}</span></td>
+                            <td>{{ item.medicine__total_quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Slow Moving Items</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Sold (30d)</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in slow_moving %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td><span class="badge bg-danger">{{ item.quantity_sold|default:0 }}</span></td>
+                            <td>{{ item.total_quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
