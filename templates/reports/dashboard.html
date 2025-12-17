@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports Dashboard - Pharmacy MS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-graph-up"></i> Reports Dashboard</h2>
+
+<!-- KPI Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card primary">
+            <div class="card-body">
+                <div class="stat-icon">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <h3>KES {{ month_summary.sales.total|default:0|floatformat:2 }}</h3>
+                <p>This Month Sales</p>
+                <small class="text-success"><i class="bi bi-arrow-up"></i> {{ month_growth|floatformat:1 }}%</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card success">
+            <div class="card-body">
+                <div class="stat-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <h3>KES {{ today_summary.sales.total|default:0|floatformat:2 }}</h3>
+                <p>Today's Sales</p>
+                <small>{{ today_summary.sales.count|default:0 }} transactions</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card warning">
+            <div class="card-body">
+                <div class="stat-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <h3>{{ inventory_summary.total_medicines }}</h3>
+                <p>Products in Stock</p>
+                <small class="text-warning">{{ inventory_summary.low_stock }} low stock</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card danger">
+            <div class="card-body">
+                <div class="stat-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3>{{ inventory_summary.expiring_soon }}</h3>
+                <p>Items Expiring Soon</p>
+                <small>Next 30 days</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row g-3 mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Sales Trend (Last 7 Days)</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="salesTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Payment Methods</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="paymentPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Products -->
+<div class="row g-3 mb-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Top Selling Products</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in top_products %}
+                        <tr>
+                            <td>{{ product.medicine__name }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>KES {{ product.revenue|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Quick Report Links</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'reports:sales' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-graph-up text-primary"></i> Sales Report
+                    </a>
+                    <a href="{% url 'reports:inventory' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-box text-success"></i> Inventory Report
+                    </a>
+                    <a href="{% url 'reports:profit_loss' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-cash-coin text-warning"></i> Profit & Loss Report
+                    </a>
+                    <a href="{% url 'reports:customers' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-people text-info"></i> Customer Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Sales Trend Chart
+const salesData = {{ sales_trend|safe }};
+if (salesData) {
+    createLineChart('salesTrendChart', 
+        salesData.map(d => d.date), 
+        salesData.map(d => d.total),
+        'Sales (KES)'
+    );
+}
+
+// Payment Pie Chart
+const paymentData = {{ payment_breakdown|safe }};
+if (paymentData) {
+    createPieChart('paymentPieChart',
+        paymentData.map(d => d.payment_method),
+        paymentData.map(d => d.total)
+    );
+}
+</script>
+{% endblock %}
+
