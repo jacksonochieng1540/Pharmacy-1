@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if is_edit %}Edit{% else %}Add{% endif %} Customer{% endblock %}
+
+{% block content %}
+<h2>{% if is_edit %}Edit{% else %}Add New{% endif %} Customer</h2>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="card mb-3">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" name="first_name" class="form-control" value="{% if customer %}{{ customer.first_name }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" name="last_name" class="form-control" value="{% if customer %}{{ customer.last_name }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone *</label>
+                            <input type="tel" name="phone" class="form-control" value="{% if customer %}{{ customer.phone }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{% if customer %}{{ customer.email }}{% endif %}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" name="date_of_birth" class="form-control" value="{% if customer %}{{ customer.date_of_birth|date:'Y-m-d' }}{% endif %}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select">
+                                <option value="">Select Gender</option>
+                                {% for value, label in gender_choices %}
+                                <option value="{{ value }}" {% if customer and customer.gender == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-3">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Address</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Address Line 1 *</label>
+                            <input type="text" name="address_line1" class="form-control" value="{% if customer %}{{ customer.address_line1 }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Address Line 2</label>
+                            <input type="text" name="address_line2" class="form-control" value="{% if customer %}{{ customer.address_line2 }}{% endif %}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City *</label>
+                            <input type="text" name="city" class="form-control" value="{% if customer %}{{ customer.city }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Postal Code</label>
+                            <input type="text" name="postal_code" class="form-control" value="{% if customer %}{{ customer.postal_code }}{% endif %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-3">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Medical Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Known Allergies</label>
+                            <textarea name="allergies" class="form-control" rows="2">{% if customer %}{{ customer.allergies }}{% endif %}</textarea>
+                            <small class="text-muted">Drug allergies or sensitivities</small>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Medical Conditions</label>
+                            <textarea name="medical_conditions" class="form-control" rows="2">{% if customer %}{{ customer.medical_conditions }}{% endif %}</textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Blood Group</label>
+                            <input type="text" name="blood_group" class="form-control" value="{% if customer %}{{ customer.blood_group }}{% endif %}" placeholder="e.g., A+, O-">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'customers:customer_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">{% if is_edit %}Update{% else %}Create{% endif %} Customer</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
