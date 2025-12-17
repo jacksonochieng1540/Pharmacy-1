@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Customers - Pharmacy MS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-people"></i> Customers</h2>
+    <a href="{% url 'customers:customer_create' %}" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Add Customer
+    </a>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Search by name, phone, email..." value="{{ search }}">
+            </div>
+            <div class="col-md-3">
+                <select name="status" class="form-select">
+                    <option value="">All Status</option>
+                    <option value="active" {% if status == 'active' %}selected{% endif %}>Active</option>
+                    <option value="inactive" {% if status == 'inactive' %}selected{% endif %}>Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Customers Table -->
+<div class="card table-card">
+    <div class="card-body">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Total Purchases</th>
+                    <th>Loyalty Points</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td><code>{{ customer.customer_id }}</code></td>
+                    <td>
+                        <a href="{% url 'customers:customer_detail' customer.pk %}">
+                            <strong>{{ customer.full_name }}</strong>
+                        </a>
+                    </td>
+                    <td>
+                        {{ customer.phone }}<br>
+                        <small class="text-muted">{{ customer.email|default:"-" }}</small>
+                    </td>
+                    <td>KES {{ customer.total_purchases|floatformat:2 }}</td>
+                    <td><span class="badge bg-warning">{{ customer.loyalty_points }}</span></td>
+                    <td>
+                        {% if customer.is_active %}
+                        <span class="badge bg-success">Active</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'customers:customer_detail' customer.pk %}" class="btn btn-outline-primary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{% url 'customers:customer_edit' customer.pk %}" class="btn btn-outline-warning">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
