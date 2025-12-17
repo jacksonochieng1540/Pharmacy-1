@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Sale {{ sale.invoice_number }} - Pharmacy MS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Sale Details - {{ sale.invoice_number }}</h2>
+    <div>
+        <a href="{% url 'sales:receipt' sale.id %}" class="btn btn-success" target="_blank">
+            <i class="bi bi-printer"></i> Print Receipt
+        </a>
+        {% if sale.status == 'completed' %}
+        <a href="{% url 'sales:process_return' sale.id %}" class="btn btn-warning">
+            <i class="bi bi-arrow-return-left"></i> Process Return
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Sale Info -->
+        <div class="card mb-3">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Sale Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tr><th width="40%">Invoice:</th><td><strong>{{ sale.invoice_number }}</strong></td></tr>
+                            <tr><th>Date & Time:</th><td>{{ sale.sale_date|date:"M d, Y H:i" }}</td></tr>
+                            <tr><th>Status:</th><td><span class="badge bg-success">{{ sale.get_status_display }}</span></td></tr>
+                            <tr><th>Served By:</th><td>{{ sale.served_by.get_full_name }}</td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tr><th width="40%">Customer:</th><td>{{ sale.customer.full_name|default:"Walk-in" }}</td></tr>
+                            {% if sale.customer %}
+                            <tr><th>Phone:</th><td>{{ sale.customer.phone }}</td></tr>
+                            {% endif %}
+                            <tr><th>Payment:</th><td><span class="badge bg-info">{{ sale.get_payment_method_display }}</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Items -->
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Items ({{ sale.items.count }})</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Batch</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in sale.items.all %}
+                        <tr>
+                            <td>
+                                <strong>{{ item.medicine.name }}</strong>
+                                <br><small class="text-muted">{{ item.medicine.strength }}</small>
+                            </td>
+                            <td><code>{{ item.batch.batch_number|default:"-" }}</code></td>
+                            <td>{{ item.quantity }}</td>
+                            <td>KES {{ item.unit_price }}</td>
+                            <td><strong>KES {{ item.total_price }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Summary -->
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Payment Summary</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr><td>Subtotal:</td><td class="text-end"><strong>KES {{ sale.subtotal }}</strong></td></tr>
+                    {% if sale.discount_amount > 0 %}
+                    <tr><td>Discount ({{ sale.discount_percentage }}%):</td><td class="text-end text-success">-KES {{ sale.discount_amount }}</td></tr>
+                    {% endif %}
+                    <tr><td>Tax (16%):</td><td class="text-end">KES {{ sale.tax_amount }}</td></tr>
+                    <tr class="border-top"><td><h5>Total:</h5></td><td class="text-end"><h4 class="text-primary">KES {{ sale.total_amount }}</h4></td></tr>
+                    <tr><td>Amount Paid:</td><td class="text-end">KES {{ sale.amount_paid }}</td></tr>
+                    {% if sale.change_amount > 0 %}
+                    <tr><td>Change:</td><td class="text-end">KES {{ sale.change_amount }}</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

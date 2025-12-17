@@ -210,3 +210,14 @@ INFO 2025-12-12 13:09:35,793 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
 WARNING 2025-12-12 13:09:35,874 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
 WARNING 2025-12-12 13:09:36,166 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
 INFO 2025-12-12 13:11:29,529 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-13 14:52:11,956 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 14:52:24,957 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-13 14:52:26,240 log Not Found: /accounts/login/
+WARNING 2025-12-13 14:52:26,241 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-13 17:19:27,813 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 17:19:34,871 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-13 17:19:35,062 log Not Found: /accounts/login/
+WARNING 2025-12-13 17:19:35,063 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-13 17:19:37,005 log Not Found: /favicon.ico
+WARNING 2025-12-13 17:19:37,006 basehttp "GET /favicon.ico HTTP/1.1" 404 5715
+INFO 2025-12-17 09:17:42,891 autoreload Watching for file changes with StatReloader
