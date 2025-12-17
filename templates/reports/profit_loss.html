@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Profit & Loss Report - Pharmacy MS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-cash-coin"></i> Profit & Loss Report</h2>
+
+<!-- Date Filter -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label>Start Date</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-md-3">
+                <label>End Date</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary d-block w-100">Generate</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Gross Revenue</h6>
+                <h3>KES {{ gross_revenue|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Cost of Goods Sold</h6>
+                <h3 class="text-danger">KES {{ total_cogs|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Gross Profit</h6>
+                <h3 class="text-success">KES {{ gross_profit|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Profit Margin</h6>
+                <h3>{{ profit_margin|floatformat:1 }}%</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly Breakdown -->
+{% if monthly_profit %}
+<div class="card mb-4">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Monthly Breakdown</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Revenue</th>
+                    <th>COGS</th>
+                    <th>Profit</th>
+                    <th>Margin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for month in monthly_profit %}
+                <tr>
+                    <td>{{ month.month }}</td>
+                    <td>KES {{ month.revenue|floatformat:2 }}</td>
+                    <td>KES {{ month.cogs|floatformat:2 }}</td>
+                    <td class="text-success">KES {{ month.profit|floatformat:2 }}</td>
+                    <td>{{ month.margin|floatformat:1 }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Profit by Category -->
+<div class="card mb-4">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Profit by Category</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Revenue</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                    <th>Quantity Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in category_profit %}
+                <tr>
+                    <td><strong>{{ cat.medicine__category__name }}</strong></td>
+                    <td>KES {{ cat.revenue|floatformat:2 }}</td>
+                    <td>KES {{ cat.cost|floatformat:2 }}</td>
+                    <td class="text-success">KES {{ cat.profit|floatformat:2 }}</td>
+                    <td>{{ cat.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Most Profitable Products -->
+<div class="card">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Most Profitable Products</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Revenue</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                    <th>Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in profitable_products %}
+                <tr>
+                    <td>{{ product.medicine__name }}</td>
+                    <td>KES {{ product.revenue|floatformat:2 }}</td>
+                    <td>KES {{ product.cost|floatformat:2 }}</td>
+                    <td class="text-success">KES {{ product.profit|floatformat:2 }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

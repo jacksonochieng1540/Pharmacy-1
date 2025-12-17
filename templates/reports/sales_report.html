@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}Sales Report - Pharmacy MS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-graph-up"></i> Sales Report</h2>
+
+<!-- Date Filter -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-2">
+                <label class="form-label">Start Date</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">End Date</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Payment Method</label>
+                <select name="payment_method" class="form-select">
+                    <option value="">All</option>
+                    {% for value, label in payment_methods %}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">&nbsp;</label>
+                <button type="submit" class="btn btn-primary d-block w-100">Generate</button>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">&nbsp;</label>
+                <button type="button" class="btn btn-outline-success export-csv d-block w-100">
+                    <i class="bi bi-file-spreadsheet"></i> Export CSV
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Sales</h6>
+                <h3>KES {{ totals.total_sales|default:0|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Transactions</h6>
+                <h3>{{ totals.count|default:0 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Average Sale</h6>
+                <h3>KES {{ totals.avg_sale|default:0|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Discount</h6>
+                <h3>KES {{ totals.total_discount|default:0|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-3 mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-white">Daily Sales</div>
+            <div class="card-body">
+                <canvas id="dailySalesChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-white">By Category</div>
+            <div class="card-body">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Products Table -->
+<div class="card">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Top Selling Products</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in top_products %}
+                <tr>
+                    <td>{{ product.medicine__name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>KES {{ product.revenue|floatformat:2 }}</td>
+                    <td class="text-success">KES {{ product.profit|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const dailyData = {{ daily_sales|safe }};
+if (dailyData) {
+    createLineChart('dailySalesChart', 
+        dailyData.map(d => d.date), 
+        dailyData.map(d => d.total),
+        'Sales'
+    );
+}
+
+const categoryData = {{ category_sales|safe }};
+if (categoryData) {
+    createPieChart('categoryChart',
+        categoryData.map(d => d.medicine__category__name),
+        categoryData.map(d => d.total)
+    );
+}
+</script>
+{% endblock %}
