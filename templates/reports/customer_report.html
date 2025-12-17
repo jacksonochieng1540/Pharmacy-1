@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer Report - Pharmacy MS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-people"></i> Customer Analytics</h2>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Total Customers</h6>
+                <h3>{{ total_customers }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Retention Rate</h6>
+                <h3>{{ retention_rate|floatformat:1 }}%</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Avg Lifetime Value</h6>
+                <h3>KES {{ avg_metrics.avg_lifetime_value|default:0|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted">Repeat Customers</h6>
+                <h3>{{ repeat_customers }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Segments -->
+<div class="card mb-4">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Customer Segments</h5>
+    </div>
+    <div class="card-body">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <h2>{{ segments.vip }}</h2>
+                <p class="text-muted">VIP (>50K)</p>
+            </div>
+            <div class="col-md-3">
+                <h2>{{ segments.high_value }}</h2>
+                <p class="text-muted">High (20-50K)</p>
+            </div>
+            <div class="col-md-3">
+                <h2>{{ segments.medium_value }}</h2>
+                <p class="text-muted">Medium (5-20K)</p>
+            </div>
+            <div class="col-md-3">
+                <h2>{{ segments.low_value }}</h2>
+                <p class="text-muted">Low (<5K)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Customers -->
+<div class="card">
+    <div class="card-header bg-white">
+        <h5 class="card-title mb-0">Top Customers</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Orders</th>
+                    <th>Total Spent</th>
+                    <th>Avg Order</th>
+                    <th>Loyalty Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in top_customers %}
+                <tr>
+                    <td>
+                        <strong>{{ customer.full_name }}</strong>
+                        <br><small class="text-muted">{{ customer.phone }}</small>
+                    </td>
+                    <td>{{ customer.orders_in_period }}</td>
+                    <td>KES {{ customer.spent_in_period|floatformat:2 }}</td>
+                    <td>KES {{ customer.avg_order_value|floatformat:2 }}</td>
+                    <td><span class="badge bg-warning">{{ customer.loyalty_points }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
