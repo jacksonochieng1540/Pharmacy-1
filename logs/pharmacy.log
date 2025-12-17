@@ -221,3 +221,239 @@ WARNING 2025-12-13 17:19:35,063 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 
 WARNING 2025-12-13 17:19:37,005 log Not Found: /favicon.ico
 WARNING 2025-12-13 17:19:37,006 basehttp "GET /favicon.ico HTTP/1.1" 404 5715
 INFO 2025-12-17 09:17:42,891 autoreload Watching for file changes with StatReloader
+INFO 2025-12-17 09:30:10,101 autoreload Watching for file changes with StatReloader
+INFO 2025-12-17 09:30:20,011 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-17 09:30:20,173 log Not Found: /accounts/login/
+WARNING 2025-12-17 09:30:20,174 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-17 09:30:34,451 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-17 09:30:34,732 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4175
+INFO 2025-12-17 09:30:34,970 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,971 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,974 basehttp "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,975 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,978 basehttp "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,978 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:34,981 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:44,399 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-17 09:30:44,492 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-17 09:30:44,692 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-17 09:30:44,883 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-17 09:30:44,883 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-17 09:30:44,884 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-17 09:31:05,715 basehttp "GET / HTTP/1.1" 200 13850
+INFO 2025-12-17 09:31:05,986 basehttp "GET /static/css/style.css HTTP/1.1" 200 8627
+WARNING 2025-12-17 09:31:06,002 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-17 09:31:06,646 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-17 09:31:11,848 log Internal Server Error: /sales/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: misuse of aggregate function SUM()
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/views.py", line 307, in sales_list
+    totals = sales.aggregate(
+             ^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/query.py", line 590, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: misuse of aggregate function SUM()
+ERROR 2025-12-17 09:31:11,852 basehttp "GET /sales/ HTTP/1.1" 500 147777
+ERROR 2025-12-17 09:31:26,854 log Internal Server Error: /inventory/expiring/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/views.py", line 406, in expiring_medicines
+    return render(request, 'inventory/expiring.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: inventory/expiring.html
+ERROR 2025-12-17 09:31:26,855 basehttp "GET /inventory/expiring/ HTTP/1.1" 500 98417
+ERROR 2025-12-17 09:31:33,553 log Internal Server Error: /sales/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: misuse of aggregate function SUM()
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/views.py", line 307, in sales_list
+    totals = sales.aggregate(
+             ^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/query.py", line 590, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: misuse of aggregate function SUM()
+ERROR 2025-12-17 09:31:33,555 basehttp "GET /sales/ HTTP/1.1" 500 147777
+ERROR 2025-12-17 09:31:40,911 log Internal Server Error: /sales/pos/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/views.py", line 38, in pos_view
+    return render(request, 'sales/pos.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: sales/pos.html
+ERROR 2025-12-17 09:31:40,915 basehttp "GET /sales/pos/ HTTP/1.1" 500 98701
+INFO 2025-12-17 09:31:49,549 basehttp "GET / HTTP/1.1" 200 13850
+WARNING 2025-12-17 09:31:49,620 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-17 09:31:49,744 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-17 09:31:51,474 basehttp "GET / HTTP/1.1" 200 13850
+WARNING 2025-12-17 09:31:51,531 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-17 09:31:52,023 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-17 09:31:53,873 log Internal Server Error: /sales/pos/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/sales/views.py", line 38, in pos_view
+    return render(request, 'sales/pos.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: sales/pos.html
+ERROR 2025-12-17 09:31:53,874 basehttp "GET /sales/pos/ HTTP/1.1" 500 98701
+ERROR 2025-12-17 09:31:58,182 log Internal Server Error: /inventory/low-stock/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/views.py", line 379, in low_stock_alert
+    return render(request, 'inventory/low_stock.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: inventory/low_stock.html
+ERROR 2025-12-17 09:31:58,183 basehttp "GET /inventory/low-stock/ HTTP/1.1" 500 97659
+INFO 2025-12-17 09:32:07,732 basehttp "GET /inventory/ HTTP/1.1" 200 12911
+WARNING 2025-12-17 09:32:07,833 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-17 09:32:08,352 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
