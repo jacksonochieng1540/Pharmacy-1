@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Medicine Categories - Pharmacy MS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'inventory:medicine_list' %}">Inventory</a></li>
+<li class="breadcrumb-item active">Categories</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary bg-opacity-10 border-bottom border-primary">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">
+                            <i class="bi bi-tags-fill text-primary"></i>
+                            Medicine Categories
+                        </h4>
+                        <p class="mb-0 text-muted">Organize and manage product categories</p>
+                    </div>
+                    {% if request.user.can_manage_inventory %}
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <i class="bi bi-plus-circle"></i> Add Category
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <!-- Statistics Overview -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary bg-opacity-10 border-0 h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-tags-fill text-primary fs-2"></i>
+                                <h3 class="mt-2 mb-0">{{ categories.count }}</h3>
+                                <small class="text-muted">Total Categories</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success bg-opacity-10 border-0 h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-capsule-pill text-success fs-2"></i>
+                                <h3 class="mt-2 mb-0">{{ total_medicines|default:0 }}</h3>
+                                <small class="text-muted">Total Medicines</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info bg-opacity-10 border-0 h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-check-circle-fill text-info fs-2"></i>
+                                <h3 class="mt-2 mb-0">{{ active_categories|default:0 }}</h3>
+                                <small class="text-muted">Active Categories</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning bg-opacity-10 border-0 h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-box-seam-fill text-warning fs-2"></i>
+                                <h3 class="mt-2 mb-0 small">KSh {{ total_inventory_value|default:0|floatformat:0 }}</h3>
+                                <small class="text-muted">Inventory Value</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Grid -->
+                <div class="row g-3">
+                    {% for category in categories %}
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="card h-100 category-card border shadow-sm">
+                            <div class="card-body">
+                                <!-- Category Header -->
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div class="category-icon-wrapper">
+                                        <div class="category-icon bg-primary bg-opacity-10 text-primary rounded-circle p-3">
+                                            <i class="bi bi-tag-fill fs-4"></i>
+                                        </div>
+                                    </div>
+                                    {% if request.user.can_manage_inventory %}
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-link text-muted p-0" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'inventory:medicine_list' %}?category={{ category.id }}">
+                                                    <i class="bi bi-eye"></i> View Medicines
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item text-danger" href="#" onclick="deleteCategory({{ category.id }})">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Category Info -->
+                                <h5 class="card-title mb-2">{{ category.name }}</h5>
+                                {% if category.description %}
+                                <p class="card-text text-muted small mb-3">
+                                    {{ category.description|truncatewords:15 }}
+                                </p>
+                                {% else %}
+                                <p class="card-text text-muted small mb-3">
+                                    No description available
+                                </p>
+                                {% endif %}
+                                
+                                <!-- Statistics -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <div class="stat-box bg-light rounded p-2 text-center">
+                                            <div class="fs-5 fw-bold text-primary">{{ category.medicine_count }}</div>
+                                            <small class="text-muted">Medicines</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-box bg-light rounded p-2 text-center">
+                                            <div class="fs-5 fw-bold text-success">{{ category.total_stock|default:0 }}</div>
+                                            <small class="text-muted">Units</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card Footer -->
+                            <div class="card-footer bg-transparent border-top">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="bi bi-currency-dollar"></i>
+                                        KSh {{ category.total_value|default:0|floatformat:0 }}
+                                    </small>
+                                    <a href="{% url 'inventory:medicine_list' %}?category={{ category.id }}" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        View <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <i class="bi bi-inbox text-muted" style="font-size: 4rem;"></i>
+                            <p class="text-muted mt-3 mb-3">No categories found. Create your first category to get started!</p>
+                            {% if request.user.can_manage_inventory %}
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                                <i class="bi bi-plus-circle"></i> Add Category
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Detailed Table View -->
+                {% if categories %}
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="bi bi-table"></i> Detailed Category List
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle" id="categoriesTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Category Name</th>
+                                        <th>Description</th>
+                                        <th class="text-center">Medicines</th>
+                                        <th class="text-center">Total Units</th>
+                                        <th class="text-end">Total Value</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-primary bg-opacity-10 text-primary rounded p-2 me-2">
+                                                    <i class="bi bi-tag-fill"></i>
+                                                </div>
+                                                <strong>{{ category.name }}</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">
+                                                {{ category.description|truncatewords:10|default:"-" }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-primary">{{ category.medicine_count }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            {{ category.total_stock|default:0 }}
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>KSh {{ category.total_value|default:0|floatformat:2 }}</strong>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{% url 'inventory:medicine_list' %}?category={{ category.id }}" 
+                                                   class="btn btn-outline-primary"
+                                                   title="View Medicines">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                {% if request.user.can_manage_inventory %}
+                                                <button class="btn btn-outline-danger" 
+                                                        onclick="deleteCategory({{ category.id }})"
+                                                        title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-plus-circle"></i> Add New Category
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="addCategoryForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">
+                            Category Name <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="categoryName" 
+                               name="name" 
+                               required
+                               placeholder="e.g., Antibiotics">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="categoryDescription" class="form-label">Description</label>
+                        <textarea class="form-control" 
+                                  id="categoryDescription" 
+                                  name="description" 
+                                  rows="3"
+                                  placeholder="Brief description of this category..."></textarea>
+                        <small class="text-muted">Optional</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Add Category
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.category-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+}
+
+.category-icon-wrapper {
+    display: inline-block;
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-box {
+    transition: all 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Initialize DataTable
+    $('#categoriesTable').DataTable({
+        pageLength: 10,
+        order: [[0, 'asc']],
+        language: {
+            search: "Search categories:"
+        }
+    });
+
+    // Form submission
+    $('#addCategoryForm').on('submit', function(e) {
+        // Form will submit normally - add validation if needed
+    });
+});
+
+function deleteCategory(categoryId) {
+    if (confirm('Are you sure you want to delete this category? All medicines in this category will need to be reassigned.')) {
+        // Add your delete logic here
+        // This could be an AJAX call to a delete endpoint
+        console.log('Deleting category:', categoryId);
+        alert('Delete functionality - integrate with your backend');
+    }
+}
+</script>
+{% endblock %}
