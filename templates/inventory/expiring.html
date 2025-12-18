@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Expiring Medicines - Pharmacy MS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'inventory:medicine_list' %}">Inventory</a></li>
+<li class="breadcrumb-item active">Expiring Items</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger bg-opacity-10 border-bottom border-danger">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">
+                            <i class="bi bi-clock-history text-danger"></i>
+                            Expiring & Expired Medicines
+                        </h4>
+                        <p class="mb-0 text-muted">Monitor product expiry dates and take action</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary" onclick="window.print()">
+                            <i class="bi bi-printer"></i> Print Report
+                        </button>
+                        <a href="{% url 'inventory:medicine_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <!-- Summary Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-danger h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-danger bg-opacity-10 rounded p-3">
+                                            <i class="bi bi-x-circle-fill text-danger fs-2"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">Expired Batches</h6>
+                                        <h2 class="mb-0 text-danger">{{ expired_batches.count }}</h2>
+                                        <small class="text-muted">Require immediate action</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card border-warning h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-warning bg-opacity-10 rounded p-3">
+                                            <i class="bi bi-exclamation-triangle-fill text-warning fs-2"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">Expiring Soon</h6>
+                                        <h2 class="mb-0 text-warning">{{ expiring_batches.count }}</h2>
+                                        <small class="text-muted">Within 90 days</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav Tabs -->
+                <ul class="nav nav-tabs mb-3" id="expiryTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="expired-tab" data-bs-toggle="tab" data-bs-target="#expired" type="button" role="tab">
+                            <i class="bi bi-x-circle"></i> Already Expired ({{ expired_batches.count }})
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="expiring-tab" data-bs-toggle="tab" data-bs-target="#expiring" type="button" role="tab">
+                            <i class="bi bi-clock"></i> Expiring Soon ({{ expiring_batches.count }})
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="expiryTabsContent">
+                    <!-- Expired Batches Tab -->
+                    <div class="tab-pane fade show active" id="expired" role="tabpanel">
+                        {% if expired_batches %}
+                        <div class="alert alert-danger d-flex align-items-center mb-3">
+                            <i class="bi bi-exclamation-octagon-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>{{ expired_batches.count }}</strong> batch(es) have already expired. 
+                                Remove these items from inventory immediately.
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Medicine</th>
+                                        <th>Batch Number</th>
+                                        <th>Supplier</th>
+                                        <th class="text-center">Remaining Qty</th>
+                                        <th>Expiry Date</th>
+                                        <th class="text-center">Days Expired</th>
+                                        <th class="text-end">Loss Value</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for batch in expired_batches %}
+                                    <tr class="table-danger">
+                                        <td>
+                                            <div>
+                                                <strong>{{ batch.medicine.name }}</strong>
+                                                {% if batch.medicine.requires_prescription %}
+                                                <span class="badge badge-sm bg-info ms-1">Rx</span>
+                                                {% endif %}
+                                            </div>
+                                            <small class="text-muted">{{ batch.medicine.strength }} - {{ batch.medicine.get_form_display }}</small>
+                                        </td>
+                                        <td><code>{{ batch.batch_number }}</code></td>
+                                        <td>
+                                            {% if batch.supplier %}
+                                                {{ batch.supplier.company_name }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-danger">{{ batch.remaining_quantity }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-danger">
+                                                <i class="bi bi-calendar-x"></i>
+                                                {{ batch.expiry_date|date:"d M, Y" }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="text-danger fw-bold">
+                                                {{ batch.days_to_expiry|add:"0"|abs }} days ago
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong class="text-danger">
+                                                KSh {{ batch.remaining_quantity|mul:batch.unit_cost|floatformat:2 }}
+                                            </strong>
+                                        </td>
+                                        <td class="text-center">
+                                            {% if request.user.can_manage_inventory %}
+                                            <a href="{% url 'inventory:stock_adjustment' batch.medicine.pk %}" 
+                                               class="btn btn-sm btn-danger"
+                                               title="Remove from Stock">
+                                                <i class="bi bi-trash"></i> Remove
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                            <p class="text-muted mt-3 mb-0">No expired batches found!</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Expiring Soon Tab -->
+                    <div class="tab-pane fade" id="expiring" role="tabpanel">
+                        {% if expiring_batches %}
+                        <div class="alert alert-warning d-flex align-items-center mb-3">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>{{ expiring_batches.count }}</strong> batch(es) will expire within the next 90 days. 
+                                Consider promotional discounts or returns.
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle" id="expiringTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Medicine</th>
+                                        <th>Batch Number</th>
+                                        <th>Supplier</th>
+                                        <th class="text-center">Remaining Qty</th>
+                                        <th>Expiry Date</th>
+                                        <th class="text-center">Days Until Expiry</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Value at Risk</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for batch in expiring_batches %}
+                                    <tr class="{% if batch.days_to_expiry <= 30 %}table-warning{% endif %}">
+                                        <td>
+                                            <div>
+                                                <strong>{{ batch.medicine.name }}</strong>
+                                                {% if batch.medicine.requires_prescription %}
+                                                <span class="badge badge-sm bg-info ms-1">Rx</span>
+                                                {% endif %}
+                                            </div>
+                                            <small class="text-muted">{{ batch.medicine.strength }} - {{ batch.medicine.get_form_display }}</small>
+                                        </td>
+                                        <td><code>{{ batch.batch_number }}</code></td>
+                                        <td>
+                                            {% if batch.supplier %}
+                                                {{ batch.supplier.company_name }}
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-secondary">{{ batch.remaining_quantity }}</span>
+                                        </td>
+                                        <td>
+                                            <i class="bi bi-calendar-event"></i>
+                                            {{ batch.expiry_date|date:"d M, Y" }}
+                                        </td>
+                                        <td class="text-center">
+                                            <strong>{{ batch.days_to_expiry }} days</strong>
+                                        </td>
+                                        <td>
+                                            {% if batch.days_to_expiry <= 7 %}
+                                                <span class="badge bg-danger">
+                                                    <i class="bi bi-exclamation-triangle"></i> Critical
+                                                </span>
+                                            {% elif batch.days_to_expiry <= 30 %}
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="bi bi-clock"></i> Urgent
+                                                </span>
+                                            {% elif batch.days_to_expiry <= 60 %}
+                                                <span class="badge bg-info">
+                                                    <i class="bi bi-info-circle"></i> Soon
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">
+                                                    <i class="bi bi-eye"></i> Monitor
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>KSh {{ batch.remaining_quantity|mul:batch.unit_cost|floatformat:2 }}</strong>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{% url 'inventory:medicine_detail' batch.medicine.pk %}" 
+                                                   class="btn btn-outline-primary"
+                                                   title="View Details">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                {% if request.user.can_manage_inventory %}
+                                                <button class="btn btn-outline-warning" 
+                                                        onclick="applyDiscount({{ batch.id }})"
+                                                        title="Apply Discount">
+                                                    <i class="bi bi-tag"></i>
+                                                </button>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                            <p class="text-muted mt-3 mb-0">No items expiring in the next 90 days!</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Action Guidelines -->
+                {% if expired_batches or expiring_batches %}
+                <div class="card mt-4 border-info">
+                    <div class="card-header bg-info bg-opacity-10">
+                        <h6 class="mb-0">
+                            <i class="bi bi-lightbulb"></i> Recommended Actions
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-danger"><i class="bi bi-x-circle"></i> For Expired Items:</h6>
+                                <ul class="small">
+                                    <li>Remove from inventory immediately</li>
+                                    <li>Document disposal properly</li>
+                                    <li>Update stock records</li>
+                                    <li>Contact supplier for potential returns if recently expired</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-warning"><i class="bi bi-clock"></i> For Expiring Items:</h6>
+                                <ul class="small">
+                                    <li>Apply promotional discounts (10-30% off)</li>
+                                    <li>Contact suppliers for potential returns</li>
+                                    <li>Prioritize selling these batches first (FIFO)</li>
+                                    <li>Review ordering quantities to prevent future waste</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Initialize DataTable for expiring items
+    $('#expiringTable').DataTable({
+        order: [[5, 'asc']], // Sort by days until expiry
+        pageLength: 25,
+        language: {
+            search: "Search batches:",
+        }
+    });
+});
+
+function applyDiscount(batchId) {
+    // This would open a modal or redirect to discount application page
+    alert('Discount feature - integrate with your discount logic');
+    // You can implement this based on your requirements
+}
+</script>
+
+<!-- Custom filter for multiplication in template -->
+{% load custom_filters %}
+{% endblock %}
