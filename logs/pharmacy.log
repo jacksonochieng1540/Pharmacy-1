@@ -1435,3 +1435,31 @@ django.db.utils.OperationalError: misuse of aggregate function SUM()
 ERROR 2025-12-18 07:45:08,359 basehttp "GET /sales/ HTTP/1.1" 500 147934
 INFO 2025-12-18 07:45:14,488 basehttp "GET /sales/pos/ HTTP/1.1" 200 42416
 WARNING 2025-12-18 07:45:15,012 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-18 07:54:25,380 autoreload Watching for file changes with StatReloader
+INFO 2025-12-18 07:55:54,088 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12330
+WARNING 2025-12-18 07:55:54,275 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-18 07:55:54,703 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-18 07:56:16,012 log Internal Server Error: /inventory/expiring/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/inventory/views.py", line 406, in expiring_medicines
+    return render(request, 'inventory/expiring.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: inventory/expiring.html
+ERROR 2025-12-18 07:56:16,015 basehttp "GET /inventory/expiring/ HTTP/1.1" 500 98594
