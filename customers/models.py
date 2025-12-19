@@ -10,7 +10,7 @@ class Customer(models.Model):
         ('O', 'Other'),
     )
     
-    # Personal Information
+    
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True, blank=True, null=True, validators=[EmailValidator()])
