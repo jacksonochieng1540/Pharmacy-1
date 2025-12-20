@@ -146,12 +146,12 @@
                                         </td>
                                         <td class="text-center">
                                             <span class="text-danger fw-bold">
-                                                {{ batch.days_to_expiry|add:"0"|abs }} days ago
+                                                {{ batch.days_expired|default:0 }} days ago
                                             </span>
                                         </td>
                                         <td class="text-end">
                                             <strong class="text-danger">
-                                                KSh {{ batch.remaining_quantity|mul:batch.unit_cost|floatformat:2 }}
+                                                KSh {{ batch.loss_value|floatformat:2 }}
                                             </strong>
                                         </td>
                                         <td class="text-center">
@@ -252,7 +252,7 @@
                                             {% endif %}
                                         </td>
                                         <td class="text-end">
-                                            <strong>KSh {{ batch.remaining_quantity|mul:batch.unit_cost|floatformat:2 }}</strong>
+                                            <strong>KSh {{ batch.loss_value|floatformat:2 }}</strong>
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group btn-group-sm">
@@ -341,7 +341,4 @@ function applyDiscount(batchId) {
     // You can implement this based on your requirements
 }
 </script>
-
-<!-- Custom filter for multiplication in template -->
-{% load custom_filters %}
 {% endblock %}
