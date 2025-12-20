@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from django.db.models import Sum, Count, Q, F
+from django.db.models import Sum, Count, Q, F, Avg
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from django.utils import timezone
@@ -303,12 +303,33 @@ def sales_list(request):
     if search:
         sales = sales.filter(invoice_number__icontains=search)
     
-    # Calculate totals
+    # Calculate totals - FIXED VERSION
     totals = sales.aggregate(
         total_sales=Sum('total_amount'),
-        total_profit=Sum(F('total_amount') - Sum('items__total_cost')),
-        count=Count('id')
+        total_discount=Sum('discount_amount'),
+        total_tax=Sum('tax_amount'),
+        count=Count('id'),
+        avg_sale=Avg('total_amount')
     )
+    
+    # Calculate profit separately (because it requires joining with items)
+    total_revenue = totals['total_sales'] or Decimal('0')
+    
+    # Get total cost from sale items
+    total_cost = SaleItem.objects.filter(
+        sale__in=sales
+    ).aggregate(
+        total=Sum('total_cost')
+    )['total'] or Decimal('0')
+    
+    total_profit = total_revenue - total_cost
+    totals['total_profit'] = total_profit
+    
+    # Sales by payment method
+    payment_breakdown = sales.values('payment_method').annotate(
+        total=Sum('total_amount'),
+        count=Count('id')
+    ).order_by('-total')
     
     # Pagination
     paginator = Paginator(sales, 25)
@@ -318,6 +339,7 @@ def sales_list(request):
     context = {
         'sales': sales_page,
         'totals': totals,
+        'payment_breakdown': payment_breakdown,
         'payment_methods': Sale.PAYMENT_METHOD_CHOICES,
         'status_choices': Sale.STATUS_CHOICES,
         'start_date': start_date,
