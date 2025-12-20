@@ -284,8 +284,11 @@ def batch_create(request, medicine_id):
         except Exception as e:
             messages.error(request, f'Error adding batch: {str(e)}')
     
-    from apps.suppliers.models import Supplier
-    suppliers = Supplier.objects.filter(is_active=True)
+    try:
+        from suppliers.models import Supplier
+        suppliers = Supplier.objects.filter(is_active=True)
+    except ImportError:
+        suppliers = []
     
     context = {
         'medicine': medicine,
@@ -386,21 +389,35 @@ def expiring_medicines(request):
     expiry_threshold = today + timedelta(days=90)
     
     # Expiring soon
-    expiring_batches = Batch.objects.filter(
+    expiring_batches_qs = Batch.objects.filter(
         expiry_date__lte=expiry_threshold,
         expiry_date__gt=today,
         is_active=True
     ).select_related('medicine', 'supplier').order_by('expiry_date')
     
+    # Calculate additional fields for each expiring batch
+    expiring_list = []
+    for batch in expiring_batches_qs:
+        batch.loss_value = Decimal(str(batch.remaining_quantity)) * batch.unit_cost
+        expiring_list.append(batch)
+    
     # Already expired
-    expired_batches = Batch.objects.filter(
+    expired_batches_qs = Batch.objects.filter(
         expiry_date__lte=today,
         is_active=True
     ).select_related('medicine', 'supplier').order_by('-expiry_date')
     
+    # Calculate additional fields for expired batches
+    expired_list = []
+    for batch in expired_batches_qs:
+        batch.loss_value = Decimal(str(batch.remaining_quantity)) * batch.unit_cost
+        # Calculate days since expiry (positive number)
+        batch.days_expired = abs(batch.days_to_expiry) if batch.days_to_expiry < 0 else 0
+        expired_list.append(batch)
+    
     context = {
-        'expiring_batches': expiring_batches,
-        'expired_batches': expired_batches,
+        'expiring_batches': expiring_list,
+        'expired_batches': expired_list,
     }
     
     return render(request, 'inventory/expiring.html', context)
