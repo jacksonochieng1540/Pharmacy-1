@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Supplier, PurchaseOrder, PurchaseOrderItem
+from .models import Supplier, PurchaseOrder, PurchaseOrderItem,
 
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
