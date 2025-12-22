@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Prescription - Pharmacy MS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item"><a href="{% url 'prescriptions:prescription_list' %}">Prescriptions</a></li>
+<li class="breadcrumb-item active">New Prescription</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary bg-opacity-10">
+                <h4 class="mb-0">
+                    <i class="bi bi-plus-circle text-primary"></i>
+                    New Prescription
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="prescriptionForm">
+                    {% csrf_token %}
+                    
+                    <!-- Patient & Doctor Information -->
+                    <h5 class="mb-3 border-bottom pb-2">Patient & Doctor Information</h5>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="customer" class="form-label">Patient <span class="text-danger">*</span></label>
+                            <select class="form-select" id="customer" name="customer" required>
+                                <option value="">Select Patient</option>
+                                {% for customer in customers %}
+                                <option value="{{ customer.id }}" 
+                                        data-phone="{{ customer.phone }}"
+                                        data-allergies="{{ customer.allergies }}"
+                                        data-conditions="{{ customer.medical_conditions }}">
+                                    {{ customer.full_name }} - {{ customer.phone }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">
+                                <a href="{% url 'customers:customer_create' %}" target="_blank">
+                                    <i class="bi bi-plus-circle"></i> Add New Patient
+                                </a>
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="doctor" class="form-label">Doctor <span class="text-danger">*</span></label>
+                            <select class="form-select" id="doctor" name="doctor" required>
+                                <option value="">Select Doctor</option>
+                                {% for doctor in doctors %}
+                                <option value="{{ doctor.id }}">
+                                    {{ doctor.full_name }} - {{ doctor.specialization }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#addDoctorModal">
+                                    <i class="bi bi-plus-circle"></i> Add New Doctor
+                                </a>
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Patient Info Display -->
+                    <div id="patientInfo" class="alert alert-info d-none mb-3">
+                        <strong>Patient Information:</strong>
+                        <div id="patientDetails"></div>
+                    </div>
+
+                    <!-- Prescription Dates -->
+                    <h5 class="mb-3 mt-4 border-bottom pb-2">Prescription Dates</h5>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="prescription_date" class="form-label">Prescription Date <span class="text-danger">*</span></label>
+                            <input type="date" 
+                                   class="form-control" 
+                                   id="prescription_date" 
+                                   name="prescription_date" 
+                                   required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="valid_until" class="form-label">Valid Until <span class="text-danger">*</span></label>
+                            <input type="date" 
+                                   class="form-control" 
+                                   id="valid_until" 
+                                   name="valid_until" 
+                                   required>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Information -->
+                    <h5 class="mb-3 mt-4 border-bottom pb-2">Clinical Information</h5>
+
+                    <div class="mb-3">
+                        <label for="diagnosis" class="form-label">Diagnosis</label>
+                        <textarea class="form-control" 
+                                  id="diagnosis" 
+                                  name="diagnosis" 
+                                  rows="3" 
+                                  placeholder="Enter diagnosis..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Additional Notes</label>
+                        <textarea class="form-control" 
+                                  id="notes" 
+                                  name="notes" 
+                                  rows="3" 
+                                  placeholder="Any additional instructions or notes..."></textarea>
+                    </div>
+
+                    <!-- Prescription Image Upload -->
+                    <div class="mb-3">
+                        <label for="prescription_image" class="form-label">Prescription Image (Optional)</label>
+                        <input type="file" 
+                               class="form-control" 
+                               id="prescription_image" 
+                               name="prescription_image"
+                               accept="image/*">
+                        <small class="form-text text-muted">
+                            Upload a scan or photo of the physical prescription
+                        </small>
+                    </div>
+
+                    <!-- Preview uploaded image -->
+                    <div id="imagePreview" class="mb-3 d-none">
+                        <label class="form-label">Image Preview:</label>
+                        <div class="border rounded p-2">
+                            <img id="previewImg" src="" class="img-fluid" style="max-height: 300px;">
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'prescriptions:prescription_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Create Prescription
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Doctor Modal -->
+<div class="modal fade" id="addDoctorModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Quick Add Doctor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">For adding doctors, please use the full doctor management page.</p>
+                <p>This ensures all required information is properly recorded.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Set today's date as default
+    const today = new Date().toISOString().split('T')[0];
+    $('#prescription_date').val(today);
+    
+    // Set valid until date (30 days from today)
+    const validUntil = new Date();
+    validUntil.setDate(validUntil.getDate() + 30);
+    $('#valid_until').val(validUntil.toISOString().split('T')[0]);
+    
+    // Initialize Select2 for better dropdowns
+    if ($.fn.select2) {
+        $('#customer, #doctor').select2({
+            placeholder: 'Select...',
+            allowClear: true
+        });
+    }
+    
+    // Show patient information when selected
+    $('#customer').on('change', function() {
+        const selectedOption = $(this).find('option:selected');
+        const phone = selectedOption.data('phone');
+        const allergies = selectedOption.data('allergies');
+        const conditions = selectedOption.data('conditions');
+        
+        if (phone) {
+            let infoHtml = '<div class="mt-2">';
+            infoHtml += '<div><strong>Phone:</strong> ' + phone + '</div>';
+            
+            if (allergies) {
+                infoHtml += '<div class="text-danger"><strong>Allergies:</strong> ' + allergies + '</div>';
+            }
+            
+            if (conditions) {
+                infoHtml += '<div class="text-warning"><strong>Medical Conditions:</strong> ' + conditions + '</div>';
+            }
+            
+            infoHtml += '</div>';
+            
+            $('#patientDetails').html(infoHtml);
+            $('#patientInfo').removeClass('d-none');
+        } else {
+            $('#patientInfo').addClass('d-none');
+        }
+    });
+    
+    // Image preview
+    $('#prescription_image').on('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewImg').attr('src', e.target.result);
+                $('#imagePreview').removeClass('d-none');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            $('#imagePreview').addClass('d-none');
+        }
+    });
+    
+    // Form validation
+    $('#prescriptionForm').on('submit', function(e) {
+        const prescriptionDate = new Date($('#prescription_date').val());
+        const validUntil = new Date($('#valid_until').val());
+        
+        if (validUntil <= prescriptionDate) {
+            e.preventDefault();
+            alert('Valid until date must be after prescription date');
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}
