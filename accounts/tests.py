@@ -11,7 +11,7 @@ User = get_user_model()
 
 
 class UserModelTest(TestCase):
-    """Test User model"""
+    """Test User model"""   
     
     def setUp(self):
         """Set up test data"""
