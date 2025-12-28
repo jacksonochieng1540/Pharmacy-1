@@ -3458,3 +3458,86 @@ Traceback (most recent call last):
   File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: accounts/user_list.html
+INFO 2025-12-22 12:52:02,840 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 12:52:18,004 basehttp "GET /sales/ HTTP/1.1" 200 21302
+WARNING 2025-12-22 12:52:19,934 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-22 12:52:24,135 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-22 12:52:38,624 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-22 12:52:38,968 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:38,991 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:39,823 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-22 12:52:39,824 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-22 12:52:39,825 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-22 12:52:52,400 basehttp "GET /admin/suppliers/supplier/add/ HTTP/1.1" 200 36308
+INFO 2025-12-22 12:52:52,786 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-12-22 12:52:53,048 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,053 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,053 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,054 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,056 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,060 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,062 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,062 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,151 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,164 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,164 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-12-22 12:52:53,168 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-22 12:52:53,239 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-12-22 12:53:11,600 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-22 13:06:45,065 autoreload Watching for file changes with StatReloader
+INFO 2025-12-22 13:07:01,708 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-22 13:07:01,735 basehttp "GET /login/ HTTP/1.1" 200 5629
+WARNING 2025-12-22 13:07:02,113 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-22 13:07:02,227 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-25 07:32:06,172 autoreload Watching for file changes with StatReloader
+INFO 2025-12-25 07:32:55,407 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-25 07:32:55,700 log Not Found: /accounts/login/
+WARNING 2025-12-25 07:32:55,701 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-25 07:33:09,190 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-25 07:33:09,220 log Not Found: /accounts/login/
+WARNING 2025-12-25 07:33:09,221 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-25 07:33:19,256 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-25 07:33:19,472 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4175
+INFO 2025-12-25 07:33:19,702 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,705 basehttp "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,705 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,705 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,706 basehttp "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,723 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:19,725 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:28,389 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-25 07:33:28,475 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-25 07:33:28,681 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-25 07:33:28,722 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-25 07:33:28,722 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-25 07:33:28,722 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-25 07:33:32,365 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-25 07:33:32,405 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-25 07:33:47,135 basehttp "GET / HTTP/1.1" 200 13850
+INFO 2025-12-25 07:33:47,696 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-12-25 07:33:47,904 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-25 07:33:48,517 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 09:56:46,040 autoreload Watching for file changes with StatReloader
+INFO 2025-12-28 09:57:25,014 basehttp "GET / HTTP/1.1" 302 0
+INFO 2025-12-28 09:57:25,609 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-28 09:57:26,212 log Not Found: /accounts/login/
+WARNING 2025-12-28 09:57:26,212 log Not Found: /accounts/login/
+WARNING 2025-12-28 09:57:26,213 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+WARNING 2025-12-28 09:57:26,214 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-28 09:58:39,050 basehttp "GET /login/ HTTP/1.1" 200 5343
+WARNING 2025-12-28 09:58:39,195 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 09:58:39,230 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-12-28 09:58:39,939 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 09:58:50,749 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-28 09:58:50,876 basehttp "GET / HTTP/1.1" 200 14226
+WARNING 2025-12-28 09:58:51,019 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 09:58:51,194 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 10:09:17,376 basehttp "GET /sales/pos/ HTTP/1.1" 200 42416
+WARNING 2025-12-28 10:09:17,482 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 10:09:17,997 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 10:09:20,929 basehttp "GET /inventory/ HTTP/1.1" 200 12911
+WARNING 2025-12-28 10:09:21,037 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 10:09:21,487 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-28 10:09:23,567 basehttp "GET /inventory/categories/ HTTP/1.1" 200 15430
+WARNING 2025-12-28 10:09:23,640 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 10:09:24,097 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
