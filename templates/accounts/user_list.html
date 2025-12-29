@@ -21,11 +21,6 @@
                         </h4>
                         <p class="mb-0 text-muted">Manage system users and their roles</p>
                     </div>
-                    <div>
-                        <a href="{% url 'accounts:user_create' %}" class="btn btn-success">
-                            <i class="bi bi-plus-circle"></i> Add New User
-                        </a>
-                    </div>
                 </div>
             </div>
             
@@ -138,7 +133,6 @@
                                 <th class="text-center">Role</th>
                                 <th class="text-center">Status</th>
                                 <th>Last Login</th>
-                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,39 +203,13 @@
                                         <span class="text-muted">Never</span>
                                     {% endif %}
                                 </td>
-                                <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="{% url 'accounts:user_detail' user.pk %}" 
-                                           class="btn btn-outline-info" 
-                                           title="View Details"
-                                           data-bs-toggle="tooltip">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        {% if request.user.role == 'admin' or request.user.is_superuser %}
-                                        <a href="{% url 'accounts:user_edit' user.pk %}" 
-                                           class="btn btn-outline-primary" 
-                                           title="Edit User"
-                                           data-bs-toggle="tooltip">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        {% if user != request.user %}
-                                        <button class="btn btn-outline-danger" 
-                                                title="Delete User"
-                                                data-bs-toggle="tooltip"
-                                                onclick="confirmDelete('{{ user.username }}', '{% url 'accounts:user_delete' user.pk %}')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                        {% endif %}
-                                        {% endif %}
-                                    </div>
-                                </td>
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="8" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
                                     <p class="text-muted mt-3 mb-0">No users found</p>
-                                    <small class="text-muted">Try adjusting your filters or add a new user</small>
+                                    <small class="text-muted">Try adjusting your filters</small>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -291,67 +259,20 @@
         </div>
     </div>
 </div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title">
-                    <i class="bi bi-exclamation-triangle"></i>
-                    Confirm Deletion
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete user <strong id="deleteUsername"></strong>?</p>
-                <p class="text-danger mb-0">
-                    <small><i class="bi bi-info-circle"></i> This action cannot be undone.</small>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form id="deleteForm" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Delete User
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
 $(document).ready(function() {
-    // Initialize tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
     // Initialize DataTable (optional)
     if ($.fn.DataTable) {
         $('#usersTable').DataTable({
             paging: false,
             ordering: true,
             searching: false,
-            info: false,
-            columnDefs: [
-                { orderable: false, targets: -1 }
-            ]
+            info: false
         });
     }
 });
-
-function confirmDelete(username, deleteUrl) {
-    document.getElementById('deleteUsername').textContent = username;
-    document.getElementById('deleteForm').action = deleteUrl;
-    
-    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-    deleteModal.show();
-}
 </script>
 {% endblock %}

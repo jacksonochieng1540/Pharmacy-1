@@ -4537,3 +4537,8 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'user_create' not found. 'use
 ERROR 2025-12-29 08:42:07,138 basehttp "GET /users/ HTTP/1.1" 500 204121
 INFO 2025-12-29 08:43:15,176 basehttp "GET /reports/inventory/ HTTP/1.1" 200 21101
 WARNING 2025-12-29 08:43:15,940 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:50:40,492 autoreload Watching for file changes with StatReloader
+INFO 2025-12-29 08:50:51,164 basehttp "GET /users/ HTTP/1.1" 200 25437
+WARNING 2025-12-29 08:50:51,329 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:50:51,981 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:50:52,038 log Not Found: /favicon.ico
