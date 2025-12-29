@@ -4118,3 +4118,422 @@ Traceback (most recent call last):
   File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'supplier_edit' not found. 'supplier_edit' is not a valid view function or pattern name.
+INFO 2025-12-28 11:36:49,853 autoreload Watching for file changes with StatReloader
+INFO 2025-12-28 11:36:55,994 basehttp "GET / HTTP/1.1" 200 13850
+INFO 2025-12-28 11:36:56,104 basehttp "GET /static/css/style.css HTTP/1.1" 200 8627
+WARNING 2025-12-28 11:36:56,151 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 11:36:56,710 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 11:36:56,933 log Not Found: /favicon.ico
+INFO 2025-12-28 12:26:01,912 basehttp "GET /sales/pos/ HTTP/1.1" 200 42416
+WARNING 2025-12-28 12:26:02,168 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 12:26:02,828 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-28 12:26:02,846 log Not Found: /favicon.ico
+INFO 2025-12-29 07:32:23,352 autoreload Watching for file changes with StatReloader
+INFO 2025-12-29 07:32:44,585 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-29 07:32:44,902 log Not Found: /accounts/login/
+WARNING 2025-12-29 07:32:44,903 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-29 07:32:53,857 basehttp "GET / HTTP/1.1" 302 0
+WARNING 2025-12-29 07:32:53,879 log Not Found: /accounts/login/
+WARNING 2025-12-29 07:32:53,879 basehttp "GET /accounts/login/?next=/ HTTP/1.1" 404 5734
+INFO 2025-12-29 07:33:04,521 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:33:04,755 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4175
+INFO 2025-12-29 07:33:04,960 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,960 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,962 basehttp "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,964 basehttp "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,972 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,972 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:04,971 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:11,699 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:33:11,750 basehttp "GET /admin/ HTTP/1.1" 200 21576
+INFO 2025-12-29 07:33:11,924 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:33:11,990 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-29 07:33:11,991 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-12-29 07:33:11,991 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-12-29 07:33:23,877 basehttp "GET / HTTP/1.1" 200 13850
+WARNING 2025-12-29 07:33:24,625 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:33:24,980 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:36:54,924 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:36:55,003 basehttp "GET /inventory/ HTTP/1.1" 200 13306
+WARNING 2025-12-29 07:36:55,113 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:36:55,582 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:36:56,876 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:36:56,896 basehttp "GET /inventory/ HTTP/1.1" 200 13306
+WARNING 2025-12-29 07:36:57,023 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:36:57,532 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:36:59,308 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:36:59,327 basehttp "GET /inventory/ HTTP/1.1" 200 13306
+WARNING 2025-12-29 07:36:59,444 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:36:59,926 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:37:00,439 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:37:00,490 basehttp "GET /inventory/ HTTP/1.1" 200 13306
+WARNING 2025-12-29 07:37:00,605 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:37:01,071 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:37:01,991 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:37:02,016 basehttp "GET /inventory/ HTTP/1.1" 200 13306
+WARNING 2025-12-29 07:37:02,143 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:37:02,639 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:37:09,989 basehttp "GET /admin/accounts/user/add/ HTTP/1.1" 200 27452
+INFO 2025-12-29 07:37:10,062 basehttp "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 200 663
+INFO 2025-12-29 07:37:10,115 basehttp "GET /static/admin/js/unusable_password_field.js HTTP/1.1" 200 1480
+INFO 2025-12-29 07:37:10,724 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,730 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,733 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,746 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,755 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,757 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,759 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,765 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,767 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,771 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,775 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,799 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:37:10,833 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 07:39:01,126 basehttp "POST /admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:39:01,312 basehttp "GET /admin/accounts/user/2/change/ HTTP/1.1" 200 49012
+INFO 2025-12-29 07:39:01,525 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 07:39:01,526 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-12-29 07:39:01,527 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-12-29 07:39:01,528 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-12-29 07:39:01,529 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-12-29 07:39:01,800 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-12-29 07:39:01,801 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-12-29 07:39:01,827 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-12-29 07:39:01,827 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-12-29 07:39:01,828 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-12-29 07:39:01,829 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-12-29 07:40:54,625 basehttp "POST /admin/accounts/user/2/change/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:40:54,771 basehttp "GET /admin/accounts/user/ HTTP/1.1" 200 25849
+INFO 2025-12-29 07:40:54,901 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 07:40:54,955 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-29 07:40:54,955 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-29 07:40:55,112 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-12-29 07:40:55,144 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-12-29 07:40:55,183 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-12-29 07:41:04,054 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:41:04,123 basehttp "GET /login/ HTTP/1.1" 200 5629
+WARNING 2025-12-29 07:41:04,262 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:41:04,711 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:18,499 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:41:18,563 basehttp "GET / HTTP/1.1" 200 14581
+WARNING 2025-12-29 07:41:18,776 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:18,780 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 200 147237
+WARNING 2025-12-29 07:41:19,239 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:25,138 basehttp "GET /sales/pos/ HTTP/1.1" 200 42753
+WARNING 2025-12-29 07:41:25,244 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:25,253 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:25,798 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:28,792 basehttp "GET /inventory/ HTTP/1.1" 200 13248
+INFO 2025-12-29 07:41:28,896 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:28,902 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:41:29,344 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:31,382 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 200 21686
+WARNING 2025-12-29 07:41:31,473 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:31,491 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:31,968 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:43,360 basehttp "GET /inventory/categories/ HTTP/1.1" 200 16265
+WARNING 2025-12-29 07:41:43,441 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:43,456 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:43,907 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:50,608 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12667
+WARNING 2025-12-29 07:41:50,692 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:50,697 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:51,188 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:55,555 basehttp "GET /inventory/expiring/ HTTP/1.1" 200 14701
+WARNING 2025-12-29 07:41:55,626 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:55,659 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:41:56,083 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:41:59,202 basehttp "GET /sales/ HTTP/1.1" 200 21639
+WARNING 2025-12-29 07:41:59,272 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:41:59,803 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:04,734 basehttp "GET /customers/ HTTP/1.1" 200 10210
+WARNING 2025-12-29 07:42:04,867 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:04,867 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:42:05,264 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:08,662 basehttp "GET /customers/customers/create/ HTTP/1.1" 200 14013
+WARNING 2025-12-29 07:42:08,774 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:42:09,248 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:15,275 basehttp "GET /suppliers/ HTTP/1.1" 200 11033
+WARNING 2025-12-29 07:42:15,365 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:15,387 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:42:15,795 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:17,628 basehttp "GET /suppliers/suppliers/create/ HTTP/1.1" 200 16805
+WARNING 2025-12-29 07:42:17,730 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:42:18,214 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:23,369 basehttp "GET /reports/ HTTP/1.1" 200 13761
+WARNING 2025-12-29 07:42:23,480 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:23,517 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:42:23,955 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:42:29,451 basehttp "GET /reports/sales/ HTTP/1.1" 200 12910
+WARNING 2025-12-29 07:42:29,550 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:42:30,014 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-29 07:42:39,842 log Internal Server Error: /reports/inventory/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/report/views.py", line 479, in inventory_report
+    return render(request, 'reports/inventory_report.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: reports/inventory_report.html
+ERROR 2025-12-29 07:42:39,845 basehttp "GET /reports/inventory/ HTTP/1.1" 500 102909
+INFO 2025-12-29 07:51:08,302 basehttp "GET /reports/profit-loss/ HTTP/1.1" 200 11618
+INFO 2025-12-29 07:51:08,402 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:51:08,405 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:08,852 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:51:18,885 basehttp "GET /reports/profit-loss/?start_date=2025-12-01&end_date=2025-12-29 HTTP/1.1" 200 11618
+WARNING 2025-12-29 07:51:18,980 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:19,436 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:51:24,470 basehttp "GET /reports/profit-loss/?start_date=2025-12-01&end_date=2025-12-29 HTTP/1.1" 200 11618
+WARNING 2025-12-29 07:51:24,552 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:25,033 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:51:25,972 basehttp "GET /reports/profit-loss/?start_date=2025-12-01&end_date=2025-12-29 HTTP/1.1" 200 11618
+WARNING 2025-12-29 07:51:26,046 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:26,507 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:51:27,212 basehttp "GET /reports/profit-loss/?start_date=2025-12-01&end_date=2025-12-29 HTTP/1.1" 200 11618
+WARNING 2025-12-29 07:51:27,301 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:27,737 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:51:39,188 basehttp "GET /reports/customers/ HTTP/1.1" 200 11026
+WARNING 2025-12-29 07:51:39,273 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:51:39,705 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-29 07:51:48,419 log Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/accounts/views.py", line 266, in user_list
+    return render(request, 'accounts/user_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/user_list.html
+ERROR 2025-12-29 07:51:48,422 basehttp "GET /users/ HTTP/1.1" 500 103610
+INFO 2025-12-29 07:53:13,064 basehttp "GET /users/ HTTP/1.1" 200 0
+INFO 2025-12-29 07:53:31,910 basehttp "GET /users/ HTTP/1.1" 200 0
+INFO 2025-12-29 07:53:45,930 basehttp "GET /suppliers/ HTTP/1.1" 200 11033
+WARNING 2025-12-29 07:53:46,026 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:53:46,054 basehttp "GET /media/profiles/Screenshot_from_2025-10-24_12-11-59.png HTTP/1.1" 304 0
+WARNING 2025-12-29 07:53:46,528 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:53:49,708 basehttp "GET /reports/ HTTP/1.1" 200 13761
+WARNING 2025-12-29 07:53:49,813 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:53:50,296 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:53:52,642 basehttp "GET /reports/inventory/ HTTP/1.1" 200 0
+INFO 2025-12-29 07:54:30,292 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:54:30,337 basehttp "GET /login/ HTTP/1.1" 200 5629
+WARNING 2025-12-29 07:54:30,490 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:54:30,935 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:54:42,441 basehttp "GET /admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:54:42,625 basehttp "GET /admin/login/?next=/admin/accounts/user/add/ HTTP/1.1" 200 4211
+INFO 2025-12-29 07:54:56,148 basehttp "POST /admin/login/?next=/admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:54:56,322 basehttp "GET /admin/accounts/user/add/ HTTP/1.1" 200 27452
+INFO 2025-12-29 07:54:56,453 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 07:57:21,970 basehttp "POST /admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:57:22,103 basehttp "GET /admin/accounts/user/3/change/ HTTP/1.1" 200 49047
+INFO 2025-12-29 07:57:22,261 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-29 07:57:39,447 log Forbidden (CSRF token from POST incorrect.): /login/
+WARNING 2025-12-29 07:57:39,448 basehttp "POST /login/ HTTP/1.1" 403 2503
+INFO 2025-12-29 07:58:07,754 basehttp "POST /admin/accounts/user/3/change/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:58:07,882 basehttp "GET /admin/accounts/user/ HTTP/1.1" 200 26498
+INFO 2025-12-29 07:58:08,016 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 07:58:08,043 basehttp "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+WARNING 2025-12-29 07:58:13,071 log Forbidden (CSRF token from POST incorrect.): /login/
+WARNING 2025-12-29 07:58:13,073 basehttp "POST /login/ HTTP/1.1" 403 2503
+INFO 2025-12-29 07:58:15,148 basehttp "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:58:15,218 basehttp "GET / HTTP/1.1" 200 13850
+INFO 2025-12-29 07:58:19,427 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:58:19,448 basehttp "GET /login/ HTTP/1.1" 200 5629
+WARNING 2025-12-29 07:58:19,630 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:58:20,033 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:58:26,164 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-29 07:58:26,208 basehttp "GET / HTTP/1.1" 200 14250
+WARNING 2025-12-29 07:58:26,375 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:58:26,816 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:58:55,992 basehttp "GET / HTTP/1.1" 200 13868
+WARNING 2025-12-29 07:58:56,088 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:58:56,552 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:58:57,656 basehttp "GET /sales/pos/ HTTP/1.1" 200 42425
+WARNING 2025-12-29 07:58:57,727 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:58:58,266 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:06,349 basehttp "GET /inventory/ HTTP/1.1" 200 12920
+WARNING 2025-12-29 07:59:06,485 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:06,963 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:09,897 basehttp "GET /inventory/medicines/create/ HTTP/1.1" 200 21358
+WARNING 2025-12-29 07:59:10,001 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:10,523 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:18,026 basehttp "GET /inventory/categories/ HTTP/1.1" 200 15937
+WARNING 2025-12-29 07:59:18,107 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:18,637 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:24,059 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12339
+WARNING 2025-12-29 07:59:24,177 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:24,597 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:32,856 basehttp "GET /customers/ HTTP/1.1" 200 9882
+WARNING 2025-12-29 07:59:32,975 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:33,404 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:36,549 basehttp "GET /suppliers/ HTTP/1.1" 200 10705
+WARNING 2025-12-29 07:59:36,680 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:37,154 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:41,106 basehttp "GET /reports/ HTTP/1.1" 200 13433
+WARNING 2025-12-29 07:59:41,197 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:41,667 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 07:59:43,622 basehttp "GET /reports/sales/ HTTP/1.1" 200 12582
+WARNING 2025-12-29 07:59:43,729 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 07:59:44,160 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:00:08,490 basehttp "GET /suppliers/ HTTP/1.1" 200 10705
+WARNING 2025-12-29 08:00:08,587 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:00:09,106 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:01:32,606 basehttp "GET /reports/ HTTP/1.1" 200 13433
+WARNING 2025-12-29 08:01:32,741 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:01:33,214 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:05:32,310 basehttp "GET /admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:05:32,337 basehttp "GET /admin/login/?next=/admin/accounts/user/add/ HTTP/1.1" 200 3732
+INFO 2025-12-29 08:05:43,782 basehttp "POST /admin/login/?next=/admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:05:43,854 basehttp "GET /admin/accounts/user/add/ HTTP/1.1" 200 27452
+INFO 2025-12-29 08:05:43,998 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 08:07:21,579 basehttp "POST /admin/accounts/user/add/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:07:21,648 basehttp "GET /admin/accounts/user/4/change/ HTTP/1.1" 200 49030
+INFO 2025-12-29 08:07:21,889 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 08:07:41,736 basehttp "POST /admin/accounts/user/4/change/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:07:41,767 basehttp "GET /admin/accounts/user/ HTTP/1.1" 200 27118
+INFO 2025-12-29 08:07:41,915 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-29 08:07:59,224 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:07:59,240 basehttp "GET /login/ HTTP/1.1" 200 5629
+WARNING 2025-12-29 08:07:59,380 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:07:59,829 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:10,047 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-29 08:08:10,080 basehttp "GET / HTTP/1.1" 200 14466
+WARNING 2025-12-29 08:08:10,211 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:10,666 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:15,622 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12548
+WARNING 2025-12-29 08:08:15,714 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:16,221 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:19,676 basehttp "GET / HTTP/1.1" 200 14079
+WARNING 2025-12-29 08:08:19,755 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:20,243 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:21,455 basehttp "GET /sales/pos/ HTTP/1.1" 200 42634
+WARNING 2025-12-29 08:08:21,535 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:22,044 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:23,240 basehttp "GET /inventory/ HTTP/1.1" 200 13129
+WARNING 2025-12-29 08:08:23,513 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:23,977 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:24,607 basehttp "GET /inventory/categories/ HTTP/1.1" 200 16146
+WARNING 2025-12-29 08:08:24,727 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:25,127 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:27,306 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12548
+WARNING 2025-12-29 08:08:27,384 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:27,860 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:37,549 basehttp "GET /inventory/low-stock/ HTTP/1.1" 200 12548
+WARNING 2025-12-29 08:08:37,659 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:38,110 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+INFO 2025-12-29 08:08:44,307 basehttp "GET /users/ HTTP/1.1" 200 0
+INFO 2025-12-29 08:08:48,341 basehttp "GET /reports/ HTTP/1.1" 200 13642
+WARNING 2025-12-29 08:08:48,425 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+WARNING 2025-12-29 08:08:48,893 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
+ERROR 2025-12-29 08:42:07,112 log Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/accounts/views.py", line 266, in user_list
+    return render(request, 'accounts/user_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/notouriousmma/Documents/Tk/pharmacy/Pharmacy_project/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_create' not found. 'user_create' is not a valid view function or pattern name.
+ERROR 2025-12-29 08:42:07,138 basehttp "GET /users/ HTTP/1.1" 500 204121
+INFO 2025-12-29 08:43:15,176 basehttp "GET /reports/inventory/ HTTP/1.1" 200 21101
+WARNING 2025-12-29 08:43:15,940 basehttp "GET /static/js/main.js HTTP/1.1" 404 1957
