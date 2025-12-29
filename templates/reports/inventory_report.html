@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inventory Report - Pharmacy MS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item"><a href="{% url 'inventory:medicine_list' %}">Inventory</a></li>
+<li class="breadcrumb-item active">Inventory Report</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary bg-opacity-10 border-bottom border-primary">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">
+                            <i class="bi bi-file-earmark-bar-graph text-primary"></i>
+                            Inventory Report
+                        </h4>
+                        <p class="mb-0 text-muted">Comprehensive inventory analysis and status</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-success me-2" onclick="exportToExcel()">
+                            <i class="bi bi-file-excel"></i> Export Excel
+                        </button>
+                        <button class="btn btn-danger" onclick="exportToPDF()">
+                            <i class="bi bi-file-pdf"></i> Export PDF
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="window.print()">
+                            <i class="bi bi-printer"></i> Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <!-- Report Header -->
+                <div class="row mb-4 print-section">
+                    <div class="col-12 text-center">
+                        <h2>Pharmacy Management System</h2>
+                        <h4>Inventory Report</h4>
+                        <p class="text-muted">Generated on: {{ report_date|date:"F d, Y H:i" }}</p>
+                    </div>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-primary bg-opacity-10 border-primary">
+                            <div class="card-body text-center">
+                                <h2 class="text-primary mb-1">{{ total_medicines }}</h2>
+                                <p class="mb-0 text-muted">Total Medicines</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-success bg-opacity-10 border-success">
+                            <div class="card-body text-center">
+                                <h2 class="text-success mb-1">{{ in_stock_count }}</h2>
+                                <p class="mb-0 text-muted">In Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-warning bg-opacity-10 border-warning">
+                            <div class="card-body text-center">
+                                <h2 class="text-warning mb-1">{{ low_stock_count }}</h2>
+                                <p class="mb-0 text-muted">Low Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-danger bg-opacity-10 border-danger">
+                            <div class="card-body text-center">
+                                <h2 class="text-danger mb-1">{{ out_of_stock_count }}</h2>
+                                <p class="mb-0 text-muted">Out of Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Value -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-currency-dollar"></i>
+                                    Inventory Value
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm mb-0">
+                                    <tr>
+                                        <td><strong>Total Inventory Value:</strong></td>
+                                        <td class="text-end"><strong>KES {{ total_value|floatformat:2|default:"0.00" }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Item Value:</td>
+                                        <td class="text-end">KES {{ avg_value|floatformat:2|default:"0.00" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-box-seam"></i>
+                                    Stock Summary
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm mb-0">
+                                    <tr>
+                                        <td><strong>Total Units in Stock:</strong></td>
+                                        <td class="text-end"><strong>{{ total_units }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Categories:</td>
+                                        <td class="text-end">{{ total_categories }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Options -->
+                <div class="card mb-4 no-print">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="bi bi-funnel"></i> Filter Report
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="get" id="filterForm">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Category</label>
+                                    <select class="form-select" name="category">
+                                        <option value="">All Categories</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ category.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Stock Status</label>
+                                    <select class="form-select" name="status">
+                                        <option value="">All Status</option>
+                                        <option value="in_stock" {% if selected_status == 'in_stock' %}selected{% endif %}>In Stock</option>
+                                        <option value="low_stock" {% if selected_status == 'low_stock' %}selected{% endif %}>Low Stock</option>
+                                        <option value="out_of_stock" {% if selected_status == 'out_of_stock' %}selected{% endif %}>Out of Stock</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="bi bi-funnel"></i> Apply Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        {% if request.GET %}
+                        <div class="mt-3">
+                            <a href="{% url 'inventory:inventory_report' %}" class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Clear Filters
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Detailed Inventory Table -->
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="bi bi-table"></i>
+                            Detailed Inventory Listing
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered" id="inventoryTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Medicine Name</th>
+                                        <th>Category</th>
+                                        <th>Form</th>
+                                        <th>Strength</th>
+                                        <th class="text-center">Stock Qty</th>
+                                        <th class="text-center">Min Level</th>
+                                        <th class="text-end">Unit Price</th>
+                                        <th class="text-end">Total Value</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for medicine in medicines %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            <strong>{{ medicine.name }}</strong>
+                                            {% if medicine.manufacturer %}
+                                            <br><small class="text-muted">{{ medicine.manufacturer }}</small>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ medicine.category.name }}</td>
+                                        <td>{{ medicine.form }}</td>
+                                        <td>{{ medicine.strength }}</td>
+                                        <td class="text-center">
+                                            <span class="badge {% if medicine.current_stock <= 0 %}bg-danger{% elif medicine.current_stock <= medicine.minimum_stock_level %}bg-warning{% else %}bg-success{% endif %}">
+                                                {{ medicine.current_stock }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">{{ medicine.minimum_stock_level }}</td>
+                                        <td class="text-end">KES {{ medicine.unit_price|floatformat:2 }}</td>
+                                        <td class="text-end">
+                                            <strong>KES {% widthratio medicine.current_stock 1 medicine.unit_price as total_val %}{{ total_val|floatformat:2 }}</strong>
+                                        </td>
+                                        <td class="text-center">
+                                            {% if medicine.current_stock <= 0 %}
+                                                <span class="badge bg-danger">Out of Stock</span>
+                                            {% elif medicine.current_stock <= medicine.minimum_stock_level %}
+                                                <span class="badge bg-warning">Low Stock</span>
+                                            {% else %}
+                                                <span class="badge bg-success">In Stock</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="10" class="text-center py-4">
+                                            <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
+                                            <p class="text-muted mt-3">No inventory data available</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                {% if medicines %}
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <th colspan="8" class="text-end">Total Inventory Value:</th>
+                                        <th class="text-end">KES {{ total_value|floatformat:2|default:"0.00" }}</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Footer -->
+                <div class="row mt-4 print-section">
+                    <div class="col-12">
+                        <hr>
+                        <p class="text-muted text-center mb-0">
+                            <small>
+                                This report was generated electronically by Pharmacy Management System<br>
+                                Generated by: {{ request.user.get_full_name }} | Date: {{ report_date|date:"F d, Y H:i" }}
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .table {
+        font-size: 10pt;
+    }
+    
+    .print-section {
+        page-break-inside: avoid;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function exportToExcel() {
+    // Simple Excel export using table data
+    const table = document.getElementById('inventoryTable');
+    let csv = [];
+    
+    // Get headers
+    const headers = [];
+    table.querySelectorAll('thead th').forEach(th => {
+        headers.push(th.textContent.trim());
+    });
+    csv.push(headers.join(','));
+    
+    // Get rows
+    table.querySelectorAll('tbody tr').forEach(tr => {
+        const row = [];
+        tr.querySelectorAll('td').forEach(td => {
+            row.push('"' + td.textContent.trim().replace(/"/g, '""') + '"');
+        });
+        if (row.length > 0) {
+            csv.push(row.join(','));
+        }
+    });
+    
+    // Download
+    const csvContent = csv.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'inventory_report_' + new Date().toISOString().split('T')[0] + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+function exportToPDF() {
+    window.print();
+}
+
+$(document).ready(function() {
+    // Initialize DataTable if available
+    if ($.fn.DataTable) {
+        $('#inventoryTable').DataTable({
+            paging: false,
+            ordering: true,
+            searching: false,
+            info: false,
+            dom: 't'
+        });
+    }
+});
+</script>
+{% endblock %}
