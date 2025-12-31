@@ -32,7 +32,7 @@ def login_view(request):
                 
                 # Set session expiry
                 if not remember_me:
-                    request.session.set_expiry(0)  # Session expires on browser close
+                    request.session.set_expiry(0)  
                 
                 # Log activity
                 UserActivity.objects.create(
@@ -79,7 +79,7 @@ def dashboard(request):
     week_ago = today - timedelta(days=7)
     month_start = today.replace(day=1)
     
-    # Sales Statistics
+    
     today_sales = Sale.objects.filter(
         sale_date__date=today,
         status='completed'
@@ -104,14 +104,14 @@ def dashboard(request):
         count=Count('id')
     )
     
-    # Inventory Statistics
+   
     total_medicines = Medicine.objects.filter(is_active=True).count()
     low_stock_count = Medicine.objects.filter(
         total_quantity__lte=F('reorder_level'),
         is_active=True
     ).count()
     
-    # Expiring medicines (within 90 days)
+   
     expiry_threshold = today + timedelta(days=90)
     expiring_batches = Batch.objects.filter(
         expiry_date__lte=expiry_threshold,
@@ -124,30 +124,29 @@ def dashboard(request):
         is_active=True
     ).count()
     
-    # Customer Statistics
+    
     total_customers = Customer.objects.filter(is_active=True).count()
     new_customers_month = Customer.objects.filter(
         created_at__date__gte=month_start
     ).count()
     
-    # Recent Sales (last 5)
+   
     recent_sales = Sale.objects.filter(
         status='completed'
     ).select_related('customer', 'served_by').order_by('-sale_date')[:5]
     
-    # Unread Notifications
+  
     unread_notifications = Notification.objects.filter(
         Q(recipients=request.user) | Q(recipients__isnull=True),
         is_read=False
     ).order_by('-created_at')[:5]
     
-    # Low Stock Items (top 5 critical)
+    
     low_stock_items = Medicine.objects.filter(
         total_quantity__lte=F('reorder_level'),
         is_active=True
     ).order_by('total_quantity')[:5]
     
-    # Top Selling Products (this month)
     top_products = SaleItem.objects.filter(
         sale__sale_date__date__gte=month_start,
         sale__status='completed'
@@ -159,7 +158,7 @@ def dashboard(request):
     ).order_by('-total_quantity')[:5]
     
     context = {
-        # Sales Stats
+       
         'today_sales_total': today_sales['total'] or Decimal('0'),
         'today_sales_count': today_sales['count'] or 0,
         'week_sales_total': week_sales['total'] or Decimal('0'),
@@ -167,17 +166,17 @@ def dashboard(request):
         'month_sales_total': month_sales['total'] or Decimal('0'),
         'month_sales_count': month_sales['count'] or 0,
         
-        # Inventory Stats
+     
         'total_medicines': total_medicines,
         'low_stock_count': low_stock_count,
         'expiring_batches': expiring_batches,
         'expired_batches': expired_batches,
         
-        # Customer Stats
+       
         'total_customers': total_customers,
         'new_customers_month': new_customers_month,
         
-        # Recent Data
+        
         'recent_sales': recent_sales,
         'unread_notifications': unread_notifications,
         'low_stock_items': low_stock_items,
@@ -193,20 +192,19 @@ def profile_view(request):
     if request.method == 'POST':
         user = request.user
         
-        # Update profile fields
+        
         user.first_name = request.POST.get('first_name', user.first_name)
         user.last_name = request.POST.get('last_name', user.last_name)
         user.email = request.POST.get('email', user.email)
         user.phone = request.POST.get('phone', user.phone)
         user.address = request.POST.get('address', user.address)
         
-        # Handle profile picture upload
+        
         if 'profile_picture' in request.FILES:
             user.profile_picture = request.FILES['profile_picture']
         
         user.save()
-        
-        # Log activity
+       
         UserActivity.objects.create(
             user=user,
             action='update',
@@ -216,7 +214,7 @@ def profile_view(request):
         messages.success(request, 'Profile updated successfully!')
         return redirect('accounts:profile')
     
-    # Get user's recent activity
+   
     recent_activity = UserActivity.objects.filter(
         user=request.user
     ).order_by('-timestamp')[:10]
@@ -234,19 +232,17 @@ def user_list(request):
     """List all users (Admin/Manager only)"""
     users = User.objects.all().order_by('-date_joined')
     
-    # Filter by role
     role_filter = request.GET.get('role')
     if role_filter:
         users = users.filter(role=role_filter)
     
-    # Filter by status
     status_filter = request.GET.get('status')
     if status_filter == 'active':
         users = users.filter(is_active_employee=True)
     elif status_filter == 'inactive':
         users = users.filter(is_active_employee=False)
     
-    # Search
+  
     search_query = request.GET.get('search')
     if search_query:
         users = users.filter(
@@ -272,10 +268,10 @@ def user_detail(request, pk):
     """View user details"""
     user = get_object_or_404(User, pk=pk)
     
-    # Get user's activity
+  
     activities = UserActivity.objects.filter(user=user).order_by('-timestamp')[:20]
     
-    # Get user's sales (if applicable)
+   
     sales = Sale.objects.filter(served_by=user).order_by('-sale_date')[:10]
     
     context = {
@@ -295,26 +291,25 @@ def change_password(request):
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
         
-        # Verify current password
+        
         if not request.user.check_password(current_password):
             messages.error(request, 'Current password is incorrect.')
             return redirect('accounts:change_password')
-        
-        # Verify new passwords match
+
         if new_password != confirm_password:
             messages.error(request, 'New passwords do not match.')
             return redirect('accounts:change_password')
         
-        # Validate password strength
+        
         if len(new_password) < 8:
             messages.error(request, 'Password must be at least 8 characters long.')
             return redirect('accounts:change_password')
         
-        # Update password
+      
         request.user.set_password(new_password)
         request.user.save()
         
-        # Log activity
+        
         UserActivity.objects.create(
             user=request.user,
             action='update',
@@ -327,7 +322,7 @@ def change_password(request):
     return render(request, 'accounts/change_password.html')
 
 
-# Helper function
+
 def get_client_ip(request):
     """Get client IP address"""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -338,5 +333,5 @@ def get_client_ip(request):
     return ip
 
 
-# Import for F expression
+
 from django.db.models import F
