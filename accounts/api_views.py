@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import Q
+from django.db.models import Q     
 
 from .models import User, UserActivity
 from .serializers import (
