@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=pharmacy_user
       - POSTGRES_PASSWORD=pharmacy_pass
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U pharmacy_user"]
       interval: 10s
